@@ -298,7 +298,7 @@ input, select, textarea, button { font-family: inherit; font-size: 14px; }
 // ═══════════════════════════════════════════════════════
 // APPS SCRIPT URL — sustituir por la URL real al desplegar
 // ═══════════════════════════════════════════════════════
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyL9Cxa6nEgOEa0aE0I8qCCBlXZZerW8ciTn6ctoVP3Ksvshz_SKsVTZu-qOKuRRUfX0w/exec';
+const APPS_SCRIPT_URL = 'TU_URL_APPS_SCRIPT_AQUI';
 
 // ═══════════════════════════════════════════════════════
 // DATOS
@@ -423,7 +423,7 @@ function renderStats() {
     const fc = calcFechas(e);
     if (fc.limPagoTasas && fc.limPagoTasas <= hoyStr && !e.fechaPagoTasas) vencim++;
     else if (fc.limRespReq && fc.limRespReq <= hoyStr && !e.fechaPresReq) vencim++;
-    else if (fc.limRespReq && diasRestantes(fc.limRespReq) <= 7) vencim++;
+    else if (fc.limRespReq && diasRestantes(fc.limRespReq) <= 7 && !e.fechaPresReq) vencim++;
   });
   const pendiente = lista.reduce((s,e) => {
     const f = calcFinanciero(e); return s + (f.pendiente > 0 ? f.pendiente : 0);
@@ -1090,6 +1090,7 @@ function eliminarExp(id) {
   if (!confirm('¿Eliminar este expediente? Esta acción no se puede deshacer.')) return;
   expedientes = expedientes.filter(e=>e.id!==id);
   guardarLocal();
+  sincronizarSheets();
   cerrarModal();
   renderLista();
 }
@@ -1133,6 +1134,9 @@ function cargarDeSheets() {
           o.checklist = (() => { try { return JSON.parse(o.checklist_json||'[]'); } catch(e){ return []; } })();
           o.id = o.id || ('exp_'+o.numExp);
           o.esMenor = o.esMenor === 'SI';
+          // Garantizar campos numéricos nunca undefined
+          o.importeTotal = parseFloat(o.importeTotal)||0;
+          o.totalTasas = parseFloat(o.totalTasas)||0;
           return o;
         });
         if (remoto.length) { expedientes = remoto; guardarLocal(); renderLista(); }
