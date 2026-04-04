@@ -698,21 +698,42 @@ function renderDetalle(exp) {
     </div>
     <div id="tab-timeline">${timeline(exp)}</div>
     <div id="tab-factura" style="display:none;">
+      ${exp.esMenor ? `<div style="background:#fff9ee;border:1px solid #f0d890;border-radius:6px;padding:10px 14px;margin-bottom:12px;font-size:13px;">
+        <b>⚠ Cliente menor — Factura a nombre de:</b> ${exp.titularFactura||'—'} · DNI: ${exp.dniTitular||'—'}
+      </div>` : ''}
       <div class="factura-resumen">
-        <div class="factura-row"><span>Importe total servicio</span><span>${round2(exp.importeTotal).toLocaleString('es-ES',{minimumFractionDigits:2})}€</span></div>
+        <div class="factura-row"><span style="color:#888;">Titular factura</span><span style="font-weight:600;">${exp.esMenor?(exp.titularFactura||'—'):exp.cliente}</span></div>
+        <div class="factura-row"><span style="color:#888;">Importe total servicio</span><span style="font-weight:600;">${round2(exp.importeTotal).toLocaleString('es-ES',{minimumFractionDigits:2})}€</span></div>
+        <div style="border-top:1px solid #eee;margin:6px 0;padding-top:8px;font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.5px;">Pagos recibidos</div>
         ${pagosHtml}
         <div class="factura-row total ${fin.pendiente>0?'pendiente':''}">
-          <span>${fin.pendiente>0?'Pendiente':'✓ Cobrado total'}</span>
+          <span>${fin.pendiente>0?'Pendiente de cobro':'✓ Cobrado total'}</span>
           <span>${fin.pendiente>0?fin.pendiente.toLocaleString('es-ES',{minimumFractionDigits:2})+'€':fin.cobrado.toLocaleString('es-ES',{minimumFractionDigits:2})+'€'}</span>
         </div>
       </div>
       <div style="font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Estado de facturación</div>
-      <div style="display:flex;gap:8px;">
-        ${['EN TRÁMITE','LISTO','FACTURADO'].map(s=>`<div style="flex:1;padding:8px;border:1px solid #ddd;border-radius:6px;text-align:center;font-size:12px;font-weight:600;color:${exp.estadoFactura===s?'white':'#555'};background:${exp.estadoFactura===s?'#1a2e4a':'white'};">${s}</div>`).join('')}
+      <div style="display:flex;gap:8px;margin-bottom:12px;">
+        ${['EN TRÁMITE','LISTO','FACTURADO'].map(s=>`
+          <button onclick="cambiarEstadoFactura('${exp.id}','${s}')" style="flex:1;padding:8px;border:1px solid ${exp.estadoFactura===s?'#1a2e4a':'#ddd'};border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;color:${exp.estadoFactura===s?'white':'#555'};background:${exp.estadoFactura===s?'#1a2e4a':'white'};">${s}</button>
+        `).join('')}
       </div>
+      ${exp.estadoFactura==='FACTURADO' ? `
+        <div style="background:#e8f5ee;border:1px solid #a8d5b5;border-radius:6px;padding:10px 14px;font-size:13px;">
+          <b>Nº Factura:</b>
+          <input type="text" id="inp_numFactura" value="${exp.numFactura||''}" placeholder="AS26/001" style="border:1px solid #ccc;border-radius:4px;padding:4px 8px;font-size:13px;margin-left:8px;width:120px;"
+            onchange="guardarNumFactura('${exp.id}',this.value)">
+        </div>` : ''}
     </div>
     <div id="tab-checklist" style="display:none;">
-      <div class="checklist">${checklistHtml||'<div style="color:#aaa;">Sin checklist para este tipo de gestión</div>'}</div>
+      <div style="font-size:12px;color:#888;margin-bottom:10px;">Marca los documentos que ya tienes del cliente</div>
+      <div class="checklist" id="checklistInteractivo">
+        ${getChecklist(exp.tipo, exp.gestion).map(item => {
+          const marcado = (exp.checklist||[]).includes(item);
+          return `<label class="check-item ${marcado?'done':''}">
+            <input type="checkbox" ${marcado?'checked':''} onchange="toggleCheckItem('${exp.id}','${item.replace(/'/g,"\\'")}',this.checked)"> ${item}
+          </label>`;
+        }).join('')}
+      </div>
     </div>
   `;
 }
@@ -1108,14 +1129,14 @@ function sincronizarSheets() {
     ['numExp','tipo','gestion','cliente','nie','otrosClientes','numExtj','esMenor','titularFactura','dniTitular',
      'fechaCreacion','docCompleta','fechaPresentacion','totalTasas','tasasPagadas','tasasPresentadas',
      'fechaReqTasas','fechaPagoTasas','fechaPresTasas','fechaRecepReq','fechaPresReq','fechaRespuesta',
-     'estado','traduccion','importeTotal','estadoFactura','pagos_json','checklist_json','observaciones'],
+     'estado','traduccion','importeTotal','estadoFactura','numFactura','pagos_json','checklist_json','observaciones'],
     ...expedientes.map(e=>[
       e.numExp,e.tipo,e.gestion,e.cliente,e.nie,e.otrosClientes,e.numExtj,e.esMenor?'SI':'NO',
       e.titularFactura,e.dniTitular,e.fechaCreacion,e.docCompleta,e.fechaPresentacion,
       e.totalTasas||0,e.tasasPagadas||'',e.tasasPresentadas||'',
       e.fechaReqTasas||'',e.fechaPagoTasas||'',e.fechaPresTasas||'',
       e.fechaRecepReq,e.fechaPresReq,e.fechaRespuesta,e.estado,e.traduccion,
-      e.importeTotal,e.estadoFactura,JSON.stringify(e.pagos||[]),JSON.stringify(e.checklist||[]),e.observaciones
+      e.importeTotal,e.estadoFactura,e.numFactura||'',JSON.stringify(e.pagos||[]),JSON.stringify(e.checklist||[]),e.observaciones
     ])
   ];
   fetch(APPS_SCRIPT_URL, { method:'POST', mode:'no-cors', body: JSON.stringify({ action:'escribir', hoja:'ExtranjeriaExp', datos }) });
@@ -1234,6 +1255,54 @@ function cerrarModal() {
   document.getElementById('overlay').classList.remove('visible');
   expEditando = null;
   pagosTemp = [];
+}
+
+// ── Cambiar estado de facturación desde el detalle ──────────────
+function cambiarEstadoFactura(id, nuevoEstado) {
+  const exp = expedientes.find(e=>e.id===id);
+  if (!exp) return;
+  exp.estadoFactura = nuevoEstado;
+  guardarLocal();
+  sincronizarSheets();
+  // Refrescar solo el detalle sin cerrar el modal
+  document.getElementById('modalBody').innerHTML = renderDetalle(exp);
+  switchDetalleTab(document.querySelector('.detalle-tab'), 'tab-factura');
+  document.querySelectorAll('.detalle-tab').forEach((t,i)=> i===1 ? t.classList.add('active') : t.classList.remove('active'));
+  document.getElementById('tab-factura').style.display='block';
+  document.getElementById('tab-timeline').style.display='none';
+  document.getElementById('tab-checklist').style.display='none';
+  renderLista();
+}
+
+// ── Guardar número de factura ───────────────────────────────────
+function guardarNumFactura(id, numFactura) {
+  const exp = expedientes.find(e=>e.id===id);
+  if (!exp) return;
+  exp.numFactura = numFactura.trim().toUpperCase();
+  guardarLocal();
+  sincronizarSheets();
+}
+
+// ── Marcar/desmarcar item del checklist ─────────────────────────
+function toggleCheckItem(id, item, marcado) {
+  const exp = expedientes.find(e=>e.id===id);
+  if (!exp) return;
+  exp.checklist = exp.checklist || [];
+  if (marcado) {
+    if (!exp.checklist.includes(item)) exp.checklist.push(item);
+  } else {
+    exp.checklist = exp.checklist.filter(i=>i!==item);
+  }
+  // Actualizar visual del label
+  const labels = document.querySelectorAll('#checklistInteractivo label.check-item');
+  labels.forEach(lbl => {
+    const cb = lbl.querySelector('input[type=checkbox]');
+    if (cb && cb.checked !== undefined) {
+      lbl.classList.toggle('done', cb.checked);
+    }
+  });
+  guardarLocal();
+  sincronizarSheets();
 }
 
 document.getElementById('overlay').addEventListener('click', e => {
