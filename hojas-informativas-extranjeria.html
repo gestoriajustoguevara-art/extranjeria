@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hojas Informativas Extranjería — Gestoría Justo Guevara</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #10b981;
+    --verde-dark: #059669;
+    --navy: #0f2044;
+    --cream: #fafaf7;
+    --border: #e2e8f0;
+    --text: #1e293b;
+    --muted: #64748b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); }
+
+  header {
+    background: linear-gradient(135deg, #059669, #10b981);
+    padding: 24px 32px;
+    color: white;
+  }
+  .header-badge {
+    font-size: 0.72rem;
+    background: rgba(255,255,255,0.2);
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  header h1 { font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 800; }
+  header p { font-size: 0.85rem; opacity: 0.85; margin-top: 5px; }
+
+  .aviso {
+    background: #fffbeb;
+    border-left: 4px solid #f59e0b;
+    padding: 12px 20px;
+    font-size: 0.83rem;
+    color: #78350f;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .toolbar {
+    background: white;
+    padding: 14px 32px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .toolbar input {
+    flex: 1;
+    min-width: 200px;
+    padding: 9px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+  }
+  .toolbar input:focus { outline: none; border-color: var(--verde); }
+
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .categoria {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  }
+  .categoria-header {
+    background: linear-gradient(135deg, #059669, #10b981);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+  }
+  .categoria-header.azul { background: linear-gradient(135deg, #1d4ed8, #3b82f6); }
+  .categoria-header.naranja { background: linear-gradient(135deg, #d97706, #f59e0b); }
+  .categoria-header.morado { background: linear-gradient(135deg, #7c3aed, #8b5cf6); }
+  .categoria-header.rosa { background: linear-gradient(135deg, #be185d, #ec4899); }
+  .categoria-header.gris { background: linear-gradient(135deg, #374151, #6b7280); }
+
+  .cat-icon { font-size: 1.3rem; }
+  .cat-titulo { font-family: 'Outfit', sans-serif; font-weight: 700; color: white; font-size: 1rem; flex: 1; }
+  .cat-count { font-size: 0.75rem; color: rgba(255,255,255,0.8); font-weight: 600; }
+  .cat-chevron { color: rgba(255,255,255,0.8); transition: transform 0.25s; }
+  .categoria.open .cat-chevron { transform: rotate(180deg); }
+
+  .categoria-body { display: none; }
+  .categoria.open .categoria-body { display: block; }
+
+  .hoja-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 20px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .hoja-item:last-child { border-bottom: none; }
+  .hoja-item:hover { background: #f0fdf4; }
+
+  .hoja-num {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 800;
+    background: #d1fae5;
+    color: #065f46;
+    padding: 3px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    min-width: 60px;
+    text-align: center;
+  }
+  .hoja-num.azul { background: #dbeafe; color: #1e40af; }
+  .hoja-num.naranja { background: #fef3c7; color: #92400e; }
+  .hoja-num.morado { background: #ede9fe; color: #5b21b6; }
+  .hoja-num.rosa { background: #fce7f3; color: #9d174d; }
+  .hoja-num.gris { background: #f1f5f9; color: #374151; }
+
+  .hoja-info { flex: 1; }
+  .hoja-titulo { font-size: 0.88rem; font-weight: 600; color: var(--text); line-height: 1.3; }
+  .hoja-sub { font-size: 0.76rem; color: var(--muted); margin-top: 2px; }
+
+  .hoja-btn {
+    padding: 6px 14px;
+    background: var(--verde);
+    color: white;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: background 0.2s;
+    font-family: 'Outfit', sans-serif;
+  }
+  .hoja-btn:hover { background: var(--verde-dark); }
+  .hoja-btn.azul { background: #3b82f6; }
+  .hoja-btn.azul:hover { background: #1d4ed8; }
+  .hoja-btn.naranja { background: #f59e0b; }
+  .hoja-btn.naranja:hover { background: #d97706; }
+  .hoja-btn.morado { background: #8b5cf6; }
+  .hoja-btn.morado:hover { background: #7c3aed; }
+  .hoja-btn.rosa { background: #ec4899; }
+  .hoja-btn.rosa:hover { background: #be185d; }
+  .hoja-btn.gris { background: #6b7280; }
+  .hoja-btn.gris:hover { background: #374151; }
+
+  .enlace-ministerio {
+    margin: 24px auto 0;
+    max-width: 900px;
+    padding: 0 20px;
+    text-align: center;
+  }
+  .enlace-ministerio a {
+    display: inline-block;
+    padding: 12px 28px;
+    background: var(--navy);
+    color: white;
+    border-radius: 10px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .enlace-ministerio a:hover { background: #1a3a6b; }
+  .enlace-ministerio p { font-size: 0.8rem; color: var(--muted); margin-top: 8px; }
+
+  .hidden { display: none !important; }
+
+  @media (max-width: 600px) {
+    header { padding: 18px 16px; }
+    .toolbar { padding: 12px 16px; }
+    main { padding: 16px 10px 40px; }
+    .hoja-btn { padding: 5px 10px; font-size: 0.72rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-badge">Ministerio de Inclusión · Actualizado 2025</div>
+  <h1>🌍 Hojas Informativas de Extranjería</h1>
+  <p>Guías oficiales con requisitos, documentación y procedimiento de cada trámite</p>
+</header>
+
+<div class="aviso">
+  ⚠️ <strong>Nota:</strong> Estas hojas se abren directamente en la web oficial del Ministerio de Inclusión. Pueden actualizarse con cambios normativos. Última revisión: Reglamento 1155/2024.
+</div>
+
+<div class="toolbar">
+  <input type="text" id="buscar" placeholder="🔍 Buscar trámite..." oninput="buscar()">
+</div>
+
+<main>
+
+  <!-- RESIDENCIA TEMPORAL -->
+  <div class="categoria open" id="cat-residencia">
+    <div class="categoria-header" onclick="toggleCat('cat-residencia')">
+      <span class="cat-icon">🏠</span>
+      <span class="cat-titulo">Residencia Temporal</span>
+      <span class="cat-count">6 hojas</span>
+      <span class="cat-chevron">▼</span>
+    </div>
+    <div class="categoria-body">
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/6.-autorizacion-inicial-de-residencia-temporal-no-lucrativa" target="_blank">
+        <span class="hoja-num">Hoja 6</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Autorización inicial de residencia temporal no lucrativa</div>
+          <div class="hoja-sub">Para quien tiene medios económicos propios sin necesidad de trabajar</div>
+        </div>
+        <span class="hoja-btn">Ver hoja →</span>
+      </a>
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/7.-renovacion-de-la-autorizacion-de-residencia-temporal-no-lucrativa" target="_blank">
+        <span class="hoja-num">Hoja 7</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Renovación de residencia temporal no lucrativa</div>
+          <div class="hoja-sub">Renovación de la autorización ya concedida</div>
+        </div>
+        <span class="hoja-btn">Ver hoja →</span>
+      </a>
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/16.-autorizacion-de-residencia-temporal-con-excepcion-a-la-autorizacion-de-trabajo" target="_blank">
+        <span class="hoja-num">Hoja 16</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Residencia temporal con excepción a la autorización de trabajo</div>
+          <div class="hoja-sub">Casos específicos que no requieren autorización de trabajo</div>
+        </div>
+        <span class="hoja-btn">Ver hoja →</span>
+      </a>
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/18.-autorizacion-de-residencia-temporal-de-familiares-de-personas-con-nacionalidad-espanola" target="_blank">
+        <span class="hoja-num">Hoja 18</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Residencia temporal de familiares de españoles</div>
+          <div class="hoja-sub">Cónyuge, hijos u otros familiares de persona con nacionalidad española</div>
+        </div>
+        <span class="hoja-btn">Ver hoja →</span>
+      </a>
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/36.-autorizacion-de-residencia-de-larga-duracion" target="_blank">
+        <span class="hoja-num">Hoja 36</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Autorización de residencia de larga duración</div>
+          <div class="hoja-sub">Tras 5 años de residencia continuada legal en España</div>
+        </div>
+        <span class="hoja-btn">Ver hoja →</span>
+      </a>
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/19.-residencia-independiente-de-las-personas-que-tienen-o-han-tenido-vinculos-familiares-con-una-persona-de-nacionalidad-espanola" target="_blank">
+        <span class="hoja-num">Hoja 19</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Residencia independiente de familiares de españoles</div>
+          <div class="hoja-sub">Para quien tuvo vínculos familiares con persona de nacionalidad española</div>
+        </div>
+        <span class="hoja-btn">Ver hoja →</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- REAGRUPACIÓN FAMILIAR -->
+  <div class="categoria open" id="cat-reagrupacion">
+    <div class="categoria-header azul" onclick="toggleCat('cat-reagrupacion')">
+      <span class="cat-icon">👨‍👩‍👧</span>
+      <span class="cat-titulo">Reagrupación Familiar</span>
+      <span class="cat-count">4 hojas</span>
+      <span class="cat-chevron">▼</span>
+    </div>
+    <div class="categoria-body">
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/8.-autorizacion-de-residencia-temporal-por-reagrupacion-familiar" target="_blank">
+        <span class="hoja-num azul">Hoja 8</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Autorización de residencia por reagrupación familiar</div>
+          <div class="hoja-sub">Solicitud inicial de reagrupación de familiares</div>
+        </div>
+        <span class="hoja-btn azul">Ver hoja →</span>
+      </a>
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/10.-renovacion-de-la-autorizacion-de-residencia-temporal-por-reagrupacion-familiar" target="_blank">
+        <span class="hoja-num azul">Hoja 10</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Renovación de residencia por reagrupación familiar</div>
+          <div class="hoja-sub">Renovación de la autorización de familiar reagrupado</div>
+        </div>
+        <span class="hoja-btn azul">Ver hoja →</span>
+      </a>
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/11.-autorizacion-de-residencia-independiente-de-familiares-reagrupados" target="_blank">
+        <span class="hoja-num azul">Hoja 11</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Residencia independiente de familiares reagrupados</div>
+          <div class="hoja-sub">Cuando el familiar reagrupado quiere independizar su situación</div>
+        </div>
+        <span class="hoja-btn azul">Ver hoja →</span>
+      </a>
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/9.-autorizacion-de-residencia-temporal-por-reagrupacion-familiar-movilidad-de-familiares-de-residentes-de-larga-duracion-ue" target="_blank">
+        <span class="hoja-num azul">Hoja 9</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Reagrupación: movilidad de familiares de residentes larga duración-UE</div>
+          <div class="hoja-sub">Caso específico de reagrupante con residencia larga duración-UE</div>
+        </div>
+        <span class="hoja-btn azul">Ver hoja →</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- TRABAJO -->
+  <div class="categoria" id="cat-trabajo">
+    <div class="categoria-header naranja" onclick="toggleCat('cat-trabajo')">
+      <span class="cat-icon">💼</span>
+      <span class="cat-titulo">Residencia y Trabajo</span>
+      <span class="cat-count">4 hojas</span>
+      <span class="cat-chevron">▼</span>
+    </div>
+    <div class="categoria-body">
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/12.-autorizacion-inicial-de-residencia-temporal-y-trabajo-por-cuenta-ajena" target="_blank">
+        <span class="hoja-num naranja">Hoja 12</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Residencia y trabajo por cuenta ajena (inicial)</div>
+          <div class="hoja-sub">Para trabajar como empleado en España</div>
+        </div>
+        <span class="hoja-btn naranja">Ver hoja →</span>
+      </a>
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/13.-renovacion-de-la-autorizacion-de-residencia-temporal-y-trabajo-por-cuenta-ajena" target="_blank">
+        <span class="hoja-num naranja">Hoja 13</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Renovación de residencia y trabajo por cuenta ajena</div>
+          <div class="hoja-sub">Renovación del permiso de trabajo como empleado</div>
+        </div>
+        <span class="hoja-btn naranja">Ver hoja →</span>
+      </a>
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/14.-autorizacion-inicial-de-residencia-temporal-y-trabajo-por-cuenta-propia" target="_blank">
+        <span class="hoja-num naranja">Hoja 14</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Residencia y trabajo por cuenta propia (inicial)</div>
+          <div class="hoja-sub">Para trabajar como autónomo en España</div>
+        </div>
+        <span class="hoja-btn naranja">Ver hoja →</span>
+      </a>
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/15.-renovacion-de-la-autorizacion-de-residencia-temporal-y-trabajo-por-cuenta-propia" target="_blank">
+        <span class="hoja-num naranja">Hoja 15</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Renovación de residencia y trabajo por cuenta propia</div>
+          <div class="hoja-sub">Renovación del permiso de trabajo como autónomo</div>
+        </div>
+        <span class="hoja-btn naranja">Ver hoja →</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ARRAIGO -->
+  <div class="categoria" id="cat-arraigo">
+    <div class="categoria-header morado" onclick="toggleCat('cat-arraigo')">
+      <span class="cat-icon">⚓</span>
+      <span class="cat-titulo">Arraigo y Circunstancias Excepcionales</span>
+      <span class="cat-count">6 hojas</span>
+      <span class="cat-chevron">▼</span>
+    </div>
+    <div class="categoria-body">
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/27.-autorizacion-de-residencia-temporal-por-circunstancias-excepcionales-arraigo-de-segunda-oportunidad" target="_blank">
+        <span class="hoja-num morado">Hoja 27</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Arraigo de segunda oportunidad</div>
+          <div class="hoja-sub">Para quien tuvo anteriormente residencia legal en España</div>
+        </div>
+        <span class="hoja-btn morado">Ver hoja →</span>
+      </a>
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/28.-autorizacion-de-residencia-temporal-por-circunstancias-excepcionales-arraigo-social" target="_blank">
+        <span class="hoja-num morado">Hoja 28</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Arraigo social</div>
+          <div class="hoja-sub">3 años de permanencia en España con integración social acreditada</div>
+        </div>
+        <span class="hoja-btn morado">Ver hoja →</span>
+      </a>
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/29.-autorizacion-de-residencia-temporal-por-circunstancias-excepcionales-arraigo-sociolaboral" target="_blank">
+        <span class="hoja-num morado">Hoja 29</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Arraigo sociolaboral</div>
+          <div class="hoja-sub">Con relación laboral acreditada de al menos 6 meses</div>
+        </div>
+        <span class="hoja-btn morado">Ver hoja →</span>
+      </a>
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/30.-autorizacion-residencia-temporal-por-circunstancias-excepcionales-arraigo-socioformativo" target="_blank">
+        <span class="hoja-num morado">Hoja 30</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Arraigo socioformativo</div>
+          <div class="hoja-sub">Para quien está cursando formación profesional o similar</div>
+        </div>
+        <span class="hoja-btn morado">Ver hoja →</span>
+      </a>
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/31.-autorizacion-de-residencia-temporal-por-circunstancias-excepcionales-arraigo-familiar" target="_blank">
+        <span class="hoja-num morado">Hoja 31</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Arraigo familiar</div>
+          <div class="hoja-sub">Por tener hijos de nacionalidad española o ser padre/madre de residente</div>
+        </div>
+        <span class="hoja-btn morado">Ver hoja →</span>
+      </a>
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/32.-autorizacion-residencia-temporal-por-circunstancias-excepcionales-por-razones-humanitarias" target="_blank">
+        <span class="hoja-num morado">Hoja 32</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Circunstancias excepcionales por razones humanitarias</div>
+          <div class="hoja-sub">Situaciones de especial vulnerabilidad o urgencia</div>
+        </div>
+        <span class="hoja-btn morado">Ver hoja →</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- NIE Y DOCUMENTOS -->
+  <div class="categoria" id="cat-nie">
+    <div class="categoria-header rosa" onclick="toggleCat('cat-nie')">
+      <span class="cat-icon">🪪</span>
+      <span class="cat-titulo">NIE, TIE y Documentos de Identidad</span>
+      <span class="cat-count">3 hojas</span>
+      <span class="cat-chevron">▼</span>
+    </div>
+    <div class="categoria-body">
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/nie-y-certificados" target="_blank">
+        <span class="hoja-num rosa">Hoja 15 EX</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">NIE y Certificados (Modelo EX15)</div>
+          <div class="hoja-sub">Solicitud de Número de Identidad de Extranjero</div>
+        </div>
+        <span class="hoja-btn rosa">Ver hoja →</span>
+      </a>
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/tarjeta-de-identidad-de-extranjero" target="_blank">
+        <span class="hoja-num rosa">TIE</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Tarjeta de Identidad de Extranjero (TIE)</div>
+          <div class="hoja-sub">Obtención o renovación de la tarjeta física de residencia</div>
+        </div>
+        <span class="hoja-btn rosa">Ver hoja →</span>
+      </a>
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/61.-legalizacion-y-traduccion-de-documentos" target="_blank">
+        <span class="hoja-num rosa">Hoja 61</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Legalización y traducción de documentos</div>
+          <div class="hoja-sub">⚠️ Imprescindible leer antes de cualquier trámite con documentación extranjera</div>
+        </div>
+        <span class="hoja-btn rosa">Ver hoja →</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- UE Y OTROS -->
+  <div class="categoria" id="cat-ue">
+    <div class="categoria-header gris" onclick="toggleCat('cat-ue')">
+      <span class="cat-icon">🇪🇺</span>
+      <span class="cat-titulo">Ciudadanos UE y Otros</span>
+      <span class="cat-count">3 hojas</span>
+      <span class="cat-chevron">▼</span>
+    </div>
+    <div class="categoria-body">
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/65.-certificado-de-registro-de-ciudadano-de-la-union-europea" target="_blank">
+        <span class="hoja-num gris">Hoja 65</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Certificado de registro de ciudadano de la UE</div>
+          <div class="hoja-sub">Para ciudadanos comunitarios que van a residir más de 3 meses en España</div>
+        </div>
+        <span class="hoja-btn gris">Ver hoja →</span>
+      </a>
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/62.-tarjeta-de-residencia-de-familiar-de-ciudadano-de-la-union-europea" target="_blank">
+        <span class="hoja-num gris">Hoja 62</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Tarjeta de residencia de familiar de ciudadano UE</div>
+          <div class="hoja-sub">Para familiares de ciudadanos comunitarios no comunitarios</div>
+        </div>
+        <span class="hoja-btn gris">Ver hoja →</span>
+      </a>
+      <a class="hoja-item" href="https://www.inclusion.gob.es/web/migraciones/w/63.-tarjeta-de-residencia-permanente-de-familiar-de-ciudadano-de-la-union-europea" target="_blank">
+        <span class="hoja-num gris">Hoja 63</span>
+        <div class="hoja-info">
+          <div class="hoja-titulo">Tarjeta de residencia permanente de familiar de ciudadano UE</div>
+          <div class="hoja-sub">Tras 5 años de residencia legal continua en España</div>
+        </div>
+        <span class="hoja-btn gris">Ver hoja →</span>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<div class="enlace-ministerio">
+  <a href="https://www.inclusion.gob.es/web/migraciones/listado-completo" target="_blank">📋 Ver listado completo de hojas informativas (Ministerio de Inclusión)</a>
+  <p>Más de 65 hojas disponibles · Se actualiza con cada cambio normativo</p>
+</div>
+<br>
+
+<script>
+function toggleCat(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+function buscar() {
+  var q = document.getElementById('buscar').value.toLowerCase();
+  var items = document.querySelectorAll('.hoja-item');
+  items.forEach(function(item) {
+    var txt = item.textContent.toLowerCase();
+    item.classList.toggle('hidden', q.length > 0 && !txt.includes(q));
+  });
+  // Expandir todas las categorías si hay búsqueda
+  if (q.length > 0) {
+    document.querySelectorAll('.categoria').forEach(c => c.classList.add('open'));
+  }
+}
+</script>
+</body>
+</html>
