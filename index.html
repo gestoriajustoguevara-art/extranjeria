@@ -57,6 +57,8 @@ input, select, textarea, button { font-family: inherit; font-size: 14px; }
 }
 .tab.active { color: var(--gold); border-bottom-color: var(--gold); }
 .tab:hover:not(.active) { color: rgba(255,255,255,0.8); }
+.tab-hojas { color: rgba(255,255,255,0.6) !important; }
+.tab-hojas:hover { color: var(--gold) !important; border-bottom-color: var(--gold) !important; }
 
 /* STATS */
 .stats-bar {
@@ -265,6 +267,7 @@ input, select, textarea, button { font-family: inherit; font-size: 14px; }
   <div class="tab active" onclick="setTab('todos',this)">Todos</div>
   <div class="tab" onclick="setTab('EX',this)">🌍 Extranjería</div>
   <div class="tab" onclick="setTab('NA',this)">🇪🇸 Nacionalidad</div>
+  <div class="tab tab-hojas" onclick="window.open('hojas-informativas-extranjeria.html','_blank')">📋 Hojas oficiales</div>
 </div>
 
 <div class="stats-bar" id="statsBar"></div>
@@ -399,7 +402,6 @@ function getBorde(exp) {
   const hoyStr = fechaHoy();
   const estados_cerrado = ['CONCEDIDO','DENEGADO','RESUELTO','ARCHIVADO'];
   if (estados_cerrado.includes(exp.estado)) return 'borde-verde';
-  // Solo alertar si la acción pendiente NO se ha completado
   if (fc.limPagoTasas && fc.limPagoTasas <= hoyStr && !exp.fechaPagoTasas) return 'borde-rojo';
   if (fc.limRespReq && fc.limRespReq <= hoyStr && !exp.fechaPresReq) return 'borde-rojo';
   if (fc.limRespReq && diasRestantes(fc.limRespReq) <= 5 && !exp.fechaPresReq) return 'borde-rojo';
@@ -531,7 +533,6 @@ function renderTarjeta(e) {
   } else if (fc.limRespReq && e.fechaPresReq) {
     vtoHtml = `<div class="t-vto verde">✓ Req. presentado ${fD(e.fechaPresReq)}</div>`;
   } else if (fc.silencioAdm) {
-    const d = diasRestantes(fc.silencioAdm);
     vtoHtml = `<div class="t-vto gris">Silencio adm: ${fD(fc.silencioAdm)}</div>`;
   }
 
@@ -540,7 +541,6 @@ function renderTarjeta(e) {
 
   const menor = e.esMenor ? `<div class="t-menor">Menor — Factura: ${e.titularFactura||'—'}</div>` : '';
 
-  // barra de progreso
   const pasos = e.tipo === 'EX'
     ? [!!e.fechaCreacion, !!e.fechaPresentacion, !!e.fechaPagoTasas, !!e.fechaPresReq || !e.fechaRecepReq, !!e.estado && ['CONCEDIDO','DENEGADO','RESUELTO'].includes(e.estado)]
     : [!!e.fechaCreacion, !!e.fechaPresentacion, !!e.fechaPresReq || !e.fechaRecepReq, !!e.estado && ['CONCEDIDO','DENEGADO','RESUELTO'].includes(e.estado)];
@@ -1028,7 +1028,6 @@ function onTipoChange() {
       getListaGestiones(tipo).map(g=>`<option value="${g}">${g}</option>`).join('') +
       '<option value="OTRO">Otro (escribir)</option>';
   }
-  // Auto-generar nº expediente si está vacío
   const numEl = document.getElementById('f_numExp');
   if (numEl && !numEl.value) numEl.value = nextNumExp(tipo);
   calcMostrarFechas();
@@ -1135,18 +1134,14 @@ function enviarVencimientosExt(exp) {
     return;
   }
 
-  // Límite respuesta requerimiento (10 días para EX, 3 meses para otros) — solo si no presentado
   if (exp.fechaRecepReq && !exp.fechaPresReq) {
-    const dias = exp.tipo === 'EX' ? 10 : 90;
     const f = new Date(exp.fechaRecepReq);
     exp.tipo === 'EX' ? f.setDate(f.getDate()+10) : f.setMonth(f.getMonth()+3);
-    const limResp = f.toISOString().slice(0,10);
-    upsert(limResp, 'Límite respuesta requerimiento', `Recep: ${exp.fechaRecepReq}`);
+    upsert(f.toISOString().slice(0,10), 'Límite respuesta requerimiento', `Recep: ${exp.fechaRecepReq}`);
   } else if (exp.fechaPresReq) {
     completar('Límite respuesta requerimiento');
   }
 
-  // Límite pago tasas (10 días desde requerimiento tasas) — solo si no pagadas
   if (exp.fechaReqTasas && exp.tasasPagadas !== 'SÍ' && exp.tasasPagadas !== 'SI') {
     const ft = new Date(exp.fechaReqTasas);
     ft.setDate(ft.getDate()+10);
@@ -1204,7 +1199,6 @@ function cargarDeSheets() {
           o.checklist = (() => { try { return JSON.parse(o.checklist_json||'[]'); } catch(e){ return []; } })();
           o.id = o.id || ('exp_'+o.numExp);
           o.esMenor = o.esMenor === 'SI';
-          // Garantizar campos numéricos nunca undefined
           o.importeTotal = parseFloat(o.importeTotal)||0;
           o.totalTasas = parseFloat(o.totalTasas)||0;
           return o;
@@ -1251,22 +1245,224 @@ function getListaGestiones(tipo) {
 }
 
 function getChecklist(tipo, gestion) {
-  const base_ex = ['Mandato firmado por el cliente', 'Pasaporte en vigor (copia y original)', 'NIE actual (si lo tiene)', 'Empadronamiento actualizado', 'Fotografía reciente', 'Modelo de solicitud cumplimentado', 'Justificante pago tasa'];
-  const base_na = ['Mandato firmado por el cliente', 'Pasaporte en vigor (copia y original)', 'NIE en vigor', 'Certificado de nacimiento (apostillado y traducido)', 'Certificado de empadronamiento histórico', 'Certificado de antecedentes penales del país de origen (apostillado y traducido)', 'Certificado de antecedentes penales de España (Ministerio Justicia)', 'Acta de manifestaciones (Notaría)', 'Justificante pago tasa 790 código 026', 'Certificado CCSE (cultura)', 'Certificado DELE A2 o superior (idioma)', 'Fotografía reciente'];
+
+  // ── DOCUMENTACIÓN BASE SIEMPRE OBLIGATORIA ──────────────────
+  const base_ex = [
+    '⚠ TODA documentación extranjera debe venir TRADUCIDA y APOSTILLADA',
+    'Mandato específico de extranjería firmado',
+    'Pasaporte completo fotocopiado — TODAS las páginas',
+    'NIE del solicitante (si lo tiene)',
+    'Certificado de empadronamiento actualizado',
+    // Medios económicos
+    'Última declaración de renta',
+    'Contrato de trabajo (del solicitante o del familiar mantenedor)',
+    '6 últimas nóminas (del solicitante o del familiar mantenedor)',
+    // Penales
+    'Certificado de penales del país de origen (apostillado y traducido) — OBLIGATORIO',
+    'Certificado de penales de otros países de residencia últimos 3 años (si procede)',
+    'Penales de España — OPCIONAL, se puede autorizar consulta directa',
+    // Seguro médico
+    'Seguro médico privado (si es primera vez en España)',
+  ];
+
+  // ── DOCUMENTACIÓN BASE NACIONALIDAD ────────────────────────
+  const base_na = [
+    'Mandato específico de nacionalidad firmado',
+    'Pasaporte completo del solicitante — TODAS las páginas',
+    'NIE del solicitante en vigor',
+    'Certificado de empadronamiento histórico (acredita 10 años de residencia)',
+    // Penales
+    'Certificado de penales del país de origen (apostillado y traducido) — OBLIGATORIO',
+    'Penales de España — OPCIONAL, se puede autorizar consulta directa',
+    // Estado civil
+    'Certificado de matrimonio si está casado/a (apostillado y traducido si es extranjero)',
+    'Nota marginal de divorcio si está divorciado/a',
+    'Documentación del cónyuge (si procede)',
+    'Documentación de los hijos (para inscripción en Registro Central)',
+    // Exámenes
+    'Verificar si está exento de exámenes (estudió en España → certificado del centro)',
+    'Certificado CCSE superado (Instituto Cervantes) — si no estudió en España',
+    'Certificado DELE A2 superado (Instituto Cervantes) — si no es de país hispanohablante',
+    // Foto
+    'Fotografía reciente',
+    // Tasa
+    'Justificante pago tasa 790 código 026',
+  ];
+
+  // ── EXTRAS POR TIPO DE GESTIÓN ──────────────────────────────
   const extras = {
-    'REAGRUPACIÓN FAMILIAR': ['Contrato de trabajo o nóminas últimos 3 meses', 'Libro de familia o documentos que acrediten vínculos familiares', 'Certificado histórico de convivencia', 'Justificante de vivienda adecuada (contrato alquiler/escritura)'],
-    'RESIDENCIA TEMPORAL INICIAL CTA. AJENA': ['Contrato de trabajo firmado por empresa y trabajador', 'Alta en Seguridad Social o autorización previa', 'DNI y CIF del empleador', 'Mandato del empleador', 'Declaración de la empresa'],
-    'SOLICITUD DE NACIONALIDAD POR RESIDENCIA': [...base_na],
-    'SOLICITUD DE NACIONALIDAD (MENOR)': [...base_na, 'Autorización de ambos progenitores', 'Libro de familia', 'Certificado escolar'],
+
+    'REAGRUPACIÓN FAMILIAR': [
+      'Mandato específico de extranjería firmado',
+      'Pasaporte completo del reagrupante fotocopiado — TODAS las páginas',
+      'NIE o DNI del reagrupante',
+      'Certificado de empadronamiento COLECTIVO (demuestra convivencia)',
+      'Libro de familia o certificado de nacimiento del reagrupado (apostillado y traducido)',
+      'Certificado del Ayuntamiento de vivienda adecuada',
+      'Contrato de trabajo del reagrupante',
+      '6 últimas nóminas del reagrupante',
+      'Última declaración de renta del reagrupante',
+      'Seguro médico privado del hijo reagrupado (si es menor)',
+      'Certificado de estudios del reagrupado (si está en edad escolar)',
+      'Certificado de penales del reagrupado del país de origen (apostillado y traducido)',
+    ],
+
+    'RESIDENCIA TEMPORAL POR REAGRUPACIÓN FAMILIAR': [
+      'Mandato específico de extranjería firmado',
+      'Pasaporte completo del reagrupante fotocopiado — TODAS las páginas',
+      'NIE o DNI del reagrupante',
+      'Certificado de empadronamiento COLECTIVO (demuestra convivencia)',
+      'Libro de familia o certificado de nacimiento del reagrupado (apostillado y traducido)',
+      'Certificado del Ayuntamiento de vivienda adecuada',
+      'Contrato de trabajo del reagrupante',
+      '6 últimas nóminas del reagrupante',
+      'Última declaración de renta del reagrupante',
+      'Seguro médico privado del hijo reagrupado (si es menor)',
+      'Certificado de estudios del reagrupado (si está en edad escolar)',
+      'Certificado de penales del reagrupado del país de origen (apostillado y traducido)',
+    ],
+
+    'RESIDENCIA TEMPORAL INICIAL CTA. AJENA': [
+      'Contrato de trabajo firmado por empresa y trabajador',
+      'Alta en Seguridad Social o autorización previa',
+      'DNI y CIF del empleador',
+      'Mandato del empleador',
+      'Declaración responsable de la empresa',
+    ],
+
+    'RESIDENCIA TEMPORAL INICIAL CTA. PROPIA': [
+      'Alta en autónomos (modelo 036/037)',
+      'Plan de negocio o justificación de la actividad',
+      'Acreditación de medios económicos propios',
+    ],
+
+    'RENOVACIÓN RESIDENCIA Y TRABAJO CTA. AJENA': [
+      'Contrato de trabajo en vigor o informe de vida laboral',
+      '3 últimas nóminas',
+      'Informe de vida laboral actualizado',
+    ],
+
+    'RENOVACIÓN RESIDENCIA Y TRABAJO CTA. PROPIA': [
+      'Alta en autónomos vigente',
+      'Últimas declaraciones fiscales (IVA, IRPF)',
+      'Justificante de actividad económica en curso',
+    ],
+
+    'RENOVACIÓN RESIDENCIA TEMPORAL': [
+      'TIE anterior (tarjeta de residencia que se renueva)',
+      'Justificante de medios económicos actualizados',
+    ],
+
+    'RESIDENCIA DE LARGA DURACIÓN (TIE)': [
+      'TIE anterior en vigor',
+      'Informe de integración social del Ayuntamiento o certificado de estudios',
+      'Justificante de medios económicos (5 años de residencia continuada)',
+    ],
+
+    'TARJETA DE FAMILIAR DE CIUDADANO UE': [
+      'Pasaporte del ciudadano UE (familiar)',
+      'Certificado de registro del ciudadano UE en España',
+      'Libro de familia o certificado de nacimiento (apostillado y traducido)',
+      'Seguro médico o tarjeta sanitaria del ciudadano UE',
+      'Justificante de medios económicos del ciudadano UE',
+    ],
+
+    'INSCRIPCIÓN REGISTRO CENTRAL RESIDENTES UE': [
+      'Pasaporte o DNI del país de origen en vigor',
+      'Justificante de actividad (contrato trabajo, autónomo, estudios o medios propios)',
+      'Seguro médico o tarjeta sanitaria',
+      'Justificante de medios económicos',
+    ],
+
+    'EXENCIÓN EXAMEN CERVANTES': [
+      'Certificado oficial del centro educativo español (demuestra estudios en España)',
+    ],
+
+    'SOLICITUD CARTA DE INVITACIÓN': [
+      'DNI del solicitante español o NIE del residente legal',
+      'Justificante de medios económicos del invitante',
+      'Justificante de domicilio (contrato alquiler o escritura)',
+      'Pasaporte del invitado (datos)',
+    ],
+
+    'SOLICITUD HISTÓRICO EMPADRONAMIENTO': [
+      'DNI o NIE del solicitante',
+    ],
+
+    'CERTIFICADO NIE': [
+      'Pasaporte en vigor',
+      'Justificante del motivo económico, profesional o social que exige el NIE',
+    ],
+
+    'SOLICITUD NIE': [
+      'Pasaporte en vigor',
+      'Justificante del motivo económico, profesional o social que exige el NIE',
+      'Formulario EX-15 cumplimentado',
+    ],
+
+    // ── NACIONALIDAD ─────────────────────────────────────────
+    'SOLICITUD DE NACIONALIDAD POR RESIDENCIA': [
+      '⚠ NO presentar hasta tener los exámenes APTOS o acreditada la exención',
+      'Mandato específico de nacionalidad firmado',
+      'Pasaporte completo del solicitante — TODAS las páginas',
+      'NIE del solicitante en vigor',
+      'Certificado de empadronamiento histórico (acredita 10 años de residencia)',
+      'Certificado de penales del país de origen (apostillado y traducido) — OBLIGATORIO',
+      'Penales de España — OPCIONAL, se puede autorizar consulta directa',
+      'Certificado de matrimonio si está casado/a (apostillado y traducido si es extranjero)',
+      'Nota marginal de divorcio si está divorciado/a',
+      'Documentación del cónyuge (si procede)',
+      'Documentación de los hijos (para inscripción en Registro Central)',
+      'Certificado CCSE superado — si no estudió en España',
+      'Certificado DELE A2 superado — si no es de país hispanohablante',
+      'Certificado del centro educativo español — si estudió en España (exime exámenes)',
+      'Fotografía reciente',
+      'Justificante pago tasa 790 código 026',
+    ],
+
+    'SOLICITUD DE NACIONALIDAD (MENOR)': [
+      '⚠ NO presentar hasta completar documentación de ambos progenitores',
+      'Mandato específico de nacionalidad firmado',
+      'Pasaporte completo del menor — TODAS las páginas',
+      'Pasaporte de los padres — TODAS las páginas',
+      'NIE del menor (si lo tiene)',
+      'NIE de ambos padres',
+      'Certificado de empadronamiento histórico',
+      'Certificado de empadronamiento COLECTIVO',
+      'Autorización firmada de ambos progenitores',
+      'Libro de familia o certificados de nacimiento',
+      'Certificado escolar (si procede)',
+      'Certificado de penales del país de origen del menor (apostillado y traducido)',
+      'Fotografía reciente',
+      'Justificante pago tasa 790 código 026',
+    ],
+
+    'EXENCIÓN EXAMEN CERVANTES (NACIONALIDAD)': [
+      'Certificado oficial del centro educativo español',
+      'NIE del solicitante',
+    ],
   };
-  const lista = tipo==='EX' ? [...base_ex] : [...base_na];
-  const extra = extras[gestion] || [];
-  extra.forEach(e => { if (!lista.includes(e)) lista.push(e); });
+
+  // Construir la lista final
+  const lista = tipo === 'EX' ? [...base_ex] : [...base_na];
+
+  // Si hay extras específicos para esta gestión, sustituimos la lista completa
+  // (para nacionalidad los extras ya son completos)
+  if (extras[gestion]) {
+    if (tipo === 'NA') {
+      // Para nacionalidad los extras son la lista completa
+      return extras[gestion];
+    } else {
+      // Para extranjería añadimos los extras a la base
+      extras[gestion].forEach(e => { if (!lista.includes(e)) lista.push(e); });
+    }
+  }
+
   return lista;
 }
 
 // ═══════════════════════════════════════════════════════
-// DATOS INICIALES (del Excel)
+// DATOS INICIALES
 // ═══════════════════════════════════════════════════════
 function getDatosIniciales() {
   return [
@@ -1306,14 +1502,12 @@ function cerrarModal() {
   pagosTemp = [];
 }
 
-// ── Cambiar estado de facturación desde el detalle ──────────────
 function cambiarEstadoFactura(id, nuevoEstado) {
   const exp = expedientes.find(e=>e.id===id);
   if (!exp) return;
   exp.estadoFactura = nuevoEstado;
   guardarLocal();
   sincronizarSheets();
-  // Refrescar solo el detalle sin cerrar el modal
   document.getElementById('modalBody').innerHTML = renderDetalle(exp);
   switchDetalleTab(document.querySelector('.detalle-tab'), 'tab-factura');
   document.querySelectorAll('.detalle-tab').forEach((t,i)=> i===1 ? t.classList.add('active') : t.classList.remove('active'));
@@ -1323,7 +1517,6 @@ function cambiarEstadoFactura(id, nuevoEstado) {
   renderLista();
 }
 
-// ── Guardar número de factura ───────────────────────────────────
 function guardarNumFactura(id, numFactura) {
   const exp = expedientes.find(e=>e.id===id);
   if (!exp) return;
@@ -1332,7 +1525,6 @@ function guardarNumFactura(id, numFactura) {
   sincronizarSheets();
 }
 
-// ── Marcar/desmarcar item del checklist ─────────────────────────
 function toggleCheckItem(id, item, marcado) {
   const exp = expedientes.find(e=>e.id===id);
   if (!exp) return;
@@ -1342,7 +1534,6 @@ function toggleCheckItem(id, item, marcado) {
   } else {
     exp.checklist = exp.checklist.filter(i=>i!==item);
   }
-  // Actualizar visual del label
   const labels = document.querySelectorAll('#checklistInteractivo label.check-item');
   labels.forEach(lbl => {
     const cb = lbl.querySelector('input[type=checkbox]');
@@ -1364,7 +1555,6 @@ document.getElementById('overlay').addEventListener('click', e => {
 cargarDeSheets();
 renderLista();
 
-// Auto-generar nº expediente al abrir formulario nuevo
 document.querySelector('.btn-nuevo').addEventListener('click', () => {
   setTimeout(() => {
     const numEl = document.getElementById('f_numExp');
