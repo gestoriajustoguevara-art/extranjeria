@@ -298,7 +298,7 @@ input, select, textarea, button { font-family: inherit; font-size: 14px; }
 // ═══════════════════════════════════════════════════════
 // APPS SCRIPT URL — sustituir por la URL real al desplegar
 // ═══════════════════════════════════════════════════════
-const APPS_SCRIPT_URL = 'TU_URL_APPS_SCRIPT_AQUI';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyL9Cxa6nEgOEa0aE0I8qCCBlXZZerW8ciTn6ctoVP3Ksvshz_SKsVTZu-qOKuRRUfX0w/exec';
 
 // ═══════════════════════════════════════════════════════
 // DATOS
@@ -1363,10 +1363,47 @@ async function rellenarDesdeMaestroEX() {
   if(st) st.textContent = '🔍 Buscando...';
   const cli = await buscarEnMaestro(nie);
   if (!cli) { if(st) st.textContent = '❌ No encontrado en Maestro'; return; }
-  const set = (id, val) => { const el = document.getElementById(id); if(el && !el.value && val) el.value = val; };
+  const set = (id, val) => { const el = document.getElementById(id); if(el && val) el.value = val; };
   const nombreCompleto = [cli.Nombre, cli.Apellido1, cli.Apellido2].filter(Boolean).join(' ').toUpperCase();
   set('f_cliente', nombreCompleto);
   if(st) st.textContent = '✅ Datos cargados desde Maestro';
+}
+
+// ═══ VENCIMIENTOS CENTRALES — EXTRANJERÍA ═════════════════════════════════
+const URL_VTO_EXT = 'https://script.google.com/macros/s/AKfycbzSpWjKLGxRp4CR4miJk4uP7b6CNmmToqGrleJXbEtQX9T6BdRyLkMReE5lBGxVk5i9SA/exec';
+
+function enviarVencimientosExt(exp) {
+  const cerrado = ['resuelto','archivado','cerrado','entregado','cancelado'].includes((exp.estado||'').toLowerCase());
+
+  // Marcar completados si se cierra
+  if (cerrado) {
+    ['Límite requerimiento','Límite pago tasas'].forEach(tipo => {
+      fetch(URL_VTO_EXT, { method:'POST', mode:'no-cors', body: JSON.stringify({
+        action:'completar', app:'Extranjería', expediente: exp.numExp, tipo
+      })});
+    });
+    return;
+  }
+
+  // Límite requerimiento (30 días desde presentación)
+  if (exp.fechaLimiteReq) {
+    fetch(URL_VTO_EXT, { method:'POST', mode:'no-cors', body: JSON.stringify({
+      action:'upsert', app:'Extranjería',
+      expediente: exp.numExp, cliente: exp.cliente,
+      fecha: exp.fechaLimiteReq, tipo:'Límite requerimiento',
+      observaciones: exp.gestion||'', estado:'Pendiente'
+    })});
+  }
+
+  // Límite pago tasas
+  if (exp.fechaLimiteTasas) {
+    fetch(URL_VTO_EXT, { method:'POST', mode:'no-cors', body: JSON.stringify({
+      action:'upsert', app:'Extranjería',
+      expediente: exp.numExp, cliente: exp.cliente,
+      fecha: exp.fechaLimiteTasas, tipo:'Límite pago tasas',
+      observaciones: exp.gestion||'', estado:'Pendiente'
+    })});
+  }
 }
 </script>
 </body>
