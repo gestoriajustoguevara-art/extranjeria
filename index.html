@@ -20,7 +20,6 @@
 body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--cream); color: #1a1a1a; font-size: 14px; }
 input, select, textarea, button { font-family: inherit; font-size: 14px; }
 
-/* HEADER */
 .header {
   background: var(--navy);
   color: white;
@@ -39,33 +38,12 @@ input, select, textarea, button { font-family: inherit; font-size: 14px; }
 .btn-nuevo { background: var(--gold); color: var(--navy); border: none; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
 .btn-nuevo:hover { background: #dbb85a; }
 
-/* TABS */
-.tabs-bar {
-  background: var(--navy2);
-  display: flex;
-  gap: 2px;
-  padding: 0 20px;
-}
-.tab {
-  padding: 10px 20px;
-  color: rgba(255,255,255,0.55);
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 500;
-  border-bottom: 3px solid transparent;
-  transition: all 0.15s;
-}
+.tabs-bar { background: var(--navy2); display: flex; gap: 2px; padding: 0 20px; }
+.tab { padding: 10px 20px; color: rgba(255,255,255,0.55); cursor: pointer; font-size: 13px; font-weight: 500; border-bottom: 3px solid transparent; transition: all 0.15s; }
 .tab.active { color: var(--gold); border-bottom-color: var(--gold); }
 .tab:hover:not(.active) { color: rgba(255,255,255,0.8); }
 
-/* STATS */
-.stats-bar {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  background: #ddd;
-  border-bottom: 1px solid #ddd;
-}
+.stats-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: #ddd; border-bottom: 1px solid #ddd; }
 .stat { background: white; padding: 10px 14px; text-align: center; }
 .stat-num { font-size: 20px; font-weight: 600; }
 .stat-num.alerta { color: var(--danger); }
@@ -73,7 +51,6 @@ input, select, textarea, button { font-family: inherit; font-size: 14px; }
 .stat-num.ok { color: var(--success); }
 .stat-lbl { font-size: 11px; color: #666; margin-top: 1px; }
 
-/* ALERTAS */
 .alertas-bar { padding: 8px 16px; display: flex; flex-direction: column; gap: 5px; background: #fff9f0; border-bottom: 1px solid #f0d8b0; }
 .alerta-item { display: flex; align-items: center; gap: 8px; font-size: 12px; }
 .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
@@ -81,17 +58,14 @@ input, select, textarea, button { font-family: inherit; font-size: 14px; }
 .dot.naranja { background: #e67e22; }
 .dot.azul { background: #3498db; }
 
-/* TOOLBAR */
 .toolbar { padding: 10px 16px; display: flex; gap: 8px; align-items: center; background: white; border-bottom: 1px solid #e8e8e8; flex-wrap: wrap; }
 .search-box { flex: 1; min-width: 200px; border: 1px solid #ddd; border-radius: 6px; padding: 7px 12px; font-size: 13px; background: #f7f7f7; outline: none; }
 .search-box:focus { border-color: var(--gold); background: white; }
 .filtro { padding: 6px 12px; border: 1px solid #ddd; border-radius: 20px; font-size: 12px; cursor: pointer; background: white; color: #555; transition: all 0.15s; }
 .filtro.on { background: var(--navy); color: white; border-color: var(--navy); }
 
-/* LISTA */
 .lista { padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
 
-/* TARJETA */
 .tarjeta { background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 14px 16px; cursor: pointer; transition: box-shadow 0.15s, border-color 0.15s; border-left: 4px solid #e0e0e0; }
 .tarjeta:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.1); border-color: #bbb; }
 .tarjeta.borde-rojo { border-left-color: #e74c3c; }
@@ -123,7 +97,6 @@ input, select, textarea, button { font-family: inherit; font-size: 14px; }
 .t-dato { font-size: 12px; color: #888; }
 .t-dato b { color: #1a1a1a; font-weight: 500; }
 
-/* BARRA PROGRESO */
 .barra-wrap { margin: 6px 0; }
 .barra-lbl { display: flex; justify-content: space-between; font-size: 11px; color: #888; margin-bottom: 3px; }
 .barra { height: 5px; background: #eee; border-radius: 3px; overflow: hidden; }
@@ -145,7 +118,6 @@ input, select, textarea, button { font-family: inherit; font-size: 14px; }
 .t-importe.cobrado { color: #1a7a4a; }
 .t-importe.parcial { color: #c05000; }
 
-/* MODAL */
 .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 200; overflow-y: auto; padding: 20px; }
 .overlay.visible { display: flex; align-items: flex-start; justify-content: center; }
 .modal { background: white; border-radius: 12px; width: 100%; max-width: 780px; margin: auto; overflow: hidden; }
@@ -156,7 +128,6 @@ input, select, textarea, button { font-family: inherit; font-size: 14px; }
 .modal-body { padding: 20px; }
 .modal-footer { padding: 14px 20px; border-top: 1px solid #eee; display: flex; justify-content: flex-end; gap: 10px; background: #fafafa; }
 
-/* SECCIONES DEL FORMULARIO */
 .seccion { margin-bottom: 20px; }
 .seccion-title { font-size: 12px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid var(--gold-light); display: flex; align-items: center; gap: 8px; }
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -165,24 +136,16 @@ input, select, textarea, button { font-family: inherit; font-size: 14px; }
 .campo { display: flex; flex-direction: column; gap: 4px; }
 .campo label { font-size: 11px; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.4px; }
 .campo input, .campo select, .campo textarea {
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 8px 10px;
-  font-size: 13px;
-  background: white;
-  outline: none;
-  transition: border-color 0.15s;
+  border: 1px solid #ddd; border-radius: 6px; padding: 8px 10px; font-size: 13px; background: white; outline: none; transition: border-color 0.15s;
 }
 .campo input:focus, .campo select:focus, .campo textarea:focus { border-color: var(--gold); }
 .campo textarea { resize: vertical; min-height: 60px; }
 .campo .nota-auto { font-size: 11px; color: var(--warning); font-weight: 600; margin-top: 2px; }
 .campo .nota-ok { font-size: 11px; color: var(--success); font-weight: 600; margin-top: 2px; }
 
-/* FECHAS CALCULADAS */
 .fecha-calc { background: #fff9ee; border: 1px solid #f0d890; border-radius: 6px; padding: 8px 12px; font-size: 12px; color: #7a5500; display: flex; align-items: center; gap: 6px; }
 .fecha-calc.urgente { background: #fff0f0; border-color: #f0a0a0; color: #8a0000; }
 
-/* PAGOS */
 .pagos-lista { display: flex; flex-direction: column; gap: 8px; }
 .pago-row { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 8px; align-items: center; background: #f9f9f9; border: 1px solid #eee; border-radius: 6px; padding: 8px 10px; }
 .btn-add-pago { background: none; border: 1px dashed #bbb; border-radius: 6px; padding: 8px; color: #888; cursor: pointer; font-size: 13px; text-align: center; width: 100%; margin-top: 6px; }
@@ -190,13 +153,11 @@ input, select, textarea, button { font-family: inherit; font-size: 14px; }
 .btn-rm { background: none; border: none; color: #ccc; cursor: pointer; font-size: 16px; padding: 0 4px; }
 .btn-rm:hover { color: var(--danger); }
 
-/* CHECKLIST */
 .checklist { display: flex; flex-direction: column; gap: 6px; }
 .check-item { display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; }
 .check-item input[type=checkbox] { width: 16px; height: 16px; cursor: pointer; accent-color: var(--navy); }
 .check-item.done { color: #888; text-decoration: line-through; }
 
-/* BUTTONS */
 .btn { padding: 9px 20px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; }
 .btn-primary { background: var(--navy); color: white; }
 .btn-primary:hover { background: var(--navy2); }
@@ -207,12 +168,10 @@ input, select, textarea, button { font-family: inherit; font-size: 14px; }
 .btn-gold { background: var(--gold); color: var(--navy); }
 .btn-gold:hover { background: #dbb85a; }
 
-/* VISTA DETALLE */
 .detalle-tabs { display: flex; border-bottom: 1px solid #eee; margin-bottom: 16px; }
 .detalle-tab { padding: 8px 16px; font-size: 13px; color: #888; cursor: pointer; border-bottom: 2px solid transparent; }
 .detalle-tab.active { color: var(--navy); border-bottom-color: var(--navy); font-weight: 600; }
 
-/* TIMELINE */
 .timeline { display: flex; flex-direction: column; gap: 0; }
 .tl-item { display: flex; gap: 12px; padding: 10px 0; }
 .tl-dot-wrap { display: flex; flex-direction: column; align-items: center; gap: 0; }
@@ -226,21 +185,15 @@ input, select, textarea, button { font-family: inherit; font-size: 14px; }
 .tl-fecha { font-size: 13px; color: #1a1a1a; }
 .tl-nota { font-size: 11px; color: #e67e22; font-weight: 600; margin-top: 2px; }
 
-/* FACTURACION */
 .factura-resumen { background: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 14px; margin-bottom: 14px; }
 .factura-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; font-size: 13px; }
 .factura-row.total { border-top: 1px solid #ddd; margin-top: 6px; padding-top: 10px; font-weight: 700; font-size: 15px; }
 .factura-row.pendiente { color: var(--danger); }
-.estado-factura { display: flex; gap: 8px; }
-.estado-factura button { flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 6px; background: white; font-size: 12px; font-weight: 600; cursor: pointer; color: #555; }
-.estado-factura button.sel { background: var(--navy); color: white; border-color: var(--navy); }
 
-/* EMPTY STATE */
 .empty { text-align: center; padding: 60px 20px; color: #aaa; }
 .empty-icon { font-size: 40px; margin-bottom: 12px; }
 .empty h3 { font-size: 16px; color: #666; margin-bottom: 6px; }
 
-/* RESPONSIVE */
 @media (max-width: 600px) {
   .grid2, .grid3 { grid-template-columns: 1fr; }
   .stats-bar { grid-template-columns: repeat(3, 1fr); }
@@ -268,7 +221,6 @@ input, select, textarea, button { font-family: inherit; font-size: 14px; }
 </div>
 
 <div class="stats-bar" id="statsBar"></div>
-
 <div class="alertas-bar" id="alertasBar" style="display:none;"></div>
 
 <div class="toolbar">
@@ -282,7 +234,6 @@ input, select, textarea, button { font-family: inherit; font-size: 14px; }
 
 <div class="lista" id="listaExp"></div>
 
-<!-- MODAL FORMULARIO / DETALLE -->
 <div class="overlay" id="overlay">
   <div class="modal">
     <div class="modal-header">
@@ -295,28 +246,40 @@ input, select, textarea, button { font-family: inherit; font-size: 14px; }
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════════
-// APPS SCRIPT URL — sustituir por la URL real al desplegar
-// ═══════════════════════════════════════════════════════
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyL9Cxa6nEgOEa0aE0I8qCCBlXZZerW8ciTn6ctoVP3Ksvshz_SKsVTZu-qOKuRRUfX0w/exec';
+// ══════════════════════════════════════════════════════════════
+// CONFIG CENTRAL — URLs cargadas automáticamente desde GitHub
+// Para cambiarlas: edita config.json en el repo "consola"
+// ══════════════════════════════════════════════════════════════
+const CONFIG_URL = 'https://gestoriajustoguevara-art.github.io/consola/config.json';
+let APPS_SCRIPT_URL = '';
+let URL_MAESTRO = '';
+let URL_VTO_EXT = '';
 
-// ═══════════════════════════════════════════════════════
-// DATOS
-// ═══════════════════════════════════════════════════════
+async function cargarConfig() {
+  try {
+    const res = await fetch(CONFIG_URL);
+    const cfg = await res.json();
+    APPS_SCRIPT_URL = cfg.extranjeria.scriptUrl;
+    URL_MAESTRO     = cfg.clientesMaestro.scriptUrl;
+    URL_VTO_EXT     = cfg.vencimientos.scriptUrl;
+    console.log('✅ Config central cargada — Extranjería lista');
+  } catch(e) {
+    console.error('❌ Error cargando config central:', e);
+  }
+}
+// ══════════════════════════════════════════════════════════════
+
 let expedientes = JSON.parse(localStorage.getItem('extExpedientes') || '[]');
 let tabActual = 'todos';
 let filtroActual = 'todos';
 let expEditando = null;
 
-// Si no hay datos, cargamos los 10 del Excel
 if (expedientes.length === 0) {
   expedientes = getDatosIniciales();
   guardarLocal();
 }
 
-// ═══════════════════════════════════════════════════════
-// UTILIDADES FECHA
-// ═══════════════════════════════════════════════════════
+// ═══ UTILIDADES FECHA ═══════════════════════════════════════
 function hoy() { return new Date(); }
 function fD(d) {
   if (!d) return '—';
@@ -326,50 +289,23 @@ function fD(d) {
   } catch(e) {}
   return d;
 }
-function sumarDias(fecha, dias) {
-  if (!fecha) return null;
-  const d = new Date(fecha);
-  d.setDate(d.getDate() + dias);
-  return d.toISOString().split('T')[0];
-}
-function sumarMeses(fecha, meses) {
-  if (!fecha) return null;
-  const d = new Date(fecha);
-  d.setMonth(d.getMonth() + meses);
-  return d.toISOString().split('T')[0];
-}
-function sumarAnios(fecha, anios) {
-  if (!fecha) return null;
-  const d = new Date(fecha);
-  d.setFullYear(d.getFullYear() + anios);
-  return d.toISOString().split('T')[0];
-}
-function diasRestantes(fecha) {
-  if (!fecha) return null;
-  const diff = new Date(fecha) - new Date();
-  return Math.ceil(diff / 86400000);
-}
-function fechaHoy() {
-  const d = new Date();
-  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-}
+function sumarDias(fecha, dias) { if (!fecha) return null; const d = new Date(fecha); d.setDate(d.getDate() + dias); return d.toISOString().split('T')[0]; }
+function sumarMeses(fecha, meses) { if (!fecha) return null; const d = new Date(fecha); d.setMonth(d.getMonth() + meses); return d.toISOString().split('T')[0]; }
+function sumarAnios(fecha, anios) { if (!fecha) return null; const d = new Date(fecha); d.setFullYear(d.getFullYear() + anios); return d.toISOString().split('T')[0]; }
+function diasRestantes(fecha) { if (!fecha) return null; const diff = new Date(fecha) - new Date(); return Math.ceil(diff / 86400000); }
+function fechaHoy() { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
 function round2(n) { const x = Number(n)||0; return Math.round((x+Number.EPSILON)*100)/100; }
 
-// ═══════════════════════════════════════════════════════
-// NUMERACIÓN
-// ═══════════════════════════════════════════════════════
+// ═══ NUMERACIÓN ══════════════════════════════════════════════
 function nextNumExp(tipo) {
   const anio = new Date().getFullYear().toString().slice(-2);
   const prefijo = tipo + anio + '/';
-  const nums = expedientes.filter(e => e.numExp && e.numExp.startsWith(prefijo))
-    .map(e => parseInt(e.numExp.replace(prefijo,''))||0);
+  const nums = expedientes.filter(e => e.numExp && e.numExp.startsWith(prefijo)).map(e => parseInt(e.numExp.replace(prefijo,''))||0);
   const max = nums.length ? Math.max(...nums) : 0;
   return prefijo + String(max+1).padStart(3,'0');
 }
 
-// ═══════════════════════════════════════════════════════
-// CÁLCULOS AUTOMÁTICOS
-// ═══════════════════════════════════════════════════════
+// ═══ CÁLCULOS ════════════════════════════════════════════════
 function calcFechas(exp) {
   const c = {};
   if (exp.tipo === 'EX') {
@@ -391,15 +327,11 @@ function calcFinanciero(exp) {
   return { cobrado: round2(cobrado), total, pendiente };
 }
 
-// ═══════════════════════════════════════════════════════
-// ESTADO BORDE TARJETA
-// ═══════════════════════════════════════════════════════
 function getBorde(exp) {
   const fc = calcFechas(exp);
   const hoyStr = fechaHoy();
   const estados_cerrado = ['CONCEDIDO','DENEGADO','RESUELTO','ARCHIVADO'];
   if (estados_cerrado.includes(exp.estado)) return 'borde-verde';
-  // Solo alertar si la acción pendiente NO se ha completado
   if (fc.limPagoTasas && fc.limPagoTasas <= hoyStr && !exp.fechaPagoTasas) return 'borde-rojo';
   if (fc.limRespReq && fc.limRespReq <= hoyStr && !exp.fechaPresReq) return 'borde-rojo';
   if (fc.limRespReq && diasRestantes(fc.limRespReq) <= 5 && !exp.fechaPresReq) return 'borde-rojo';
@@ -409,9 +341,6 @@ function getBorde(exp) {
   return 'borde-gris';
 }
 
-// ═══════════════════════════════════════════════════════
-// ESTADÍSTICAS
-// ═══════════════════════════════════════════════════════
 function renderStats() {
   const lista = filtrarPorTab();
   const total = lista.length;
@@ -425,21 +354,15 @@ function renderStats() {
     else if (fc.limRespReq && fc.limRespReq <= hoyStr && !e.fechaPresReq) vencim++;
     else if (fc.limRespReq && diasRestantes(fc.limRespReq) <= 7 && !e.fechaPresReq) vencim++;
   });
-  const pendiente = lista.reduce((s,e) => {
-    const f = calcFinanciero(e); return s + (f.pendiente > 0 ? f.pendiente : 0);
-  }, 0);
+  const pendiente = lista.reduce((s,e) => { const f = calcFinanciero(e); return s + (f.pendiente > 0 ? f.pendiente : 0); }, 0);
   document.getElementById('statsBar').innerHTML = `
     <div class="stat"><div class="stat-num">${total}</div><div class="stat-lbl">Total</div></div>
     <div class="stat"><div class="stat-num ok">${concedidos}</div><div class="stat-lbl">Concedidos</div></div>
     <div class="stat"><div class="stat-num warn">${tramite}</div><div class="stat-lbl">En trámite</div></div>
     <div class="stat"><div class="stat-num alerta">${vencim}</div><div class="stat-lbl">⚠ Vencimientos</div></div>
-    <div class="stat"><div class="stat-num alerta">${round2(pendiente).toLocaleString('es-ES',{minimumFractionDigits:0})}€</div><div class="stat-lbl">Pendiente cobro</div></div>
-  `;
+    <div class="stat"><div class="stat-num alerta">${round2(pendiente).toLocaleString('es-ES',{minimumFractionDigits:0})}€</div><div class="stat-lbl">Pendiente cobro</div></div>`;
 }
 
-// ═══════════════════════════════════════════════════════
-// ALERTAS
-// ═══════════════════════════════════════════════════════
 function renderAlertas() {
   const hoyStr = fechaHoy();
   const alertas = [];
@@ -460,9 +383,6 @@ function renderAlertas() {
   bar.innerHTML = alertas.map(a => `<div class="alerta-item"><div class="dot ${a.tipo}"></div><span style="font-size:12px;">${a.texto}</span></div>`).join('');
 }
 
-// ═══════════════════════════════════════════════════════
-// FILTRADO
-// ═══════════════════════════════════════════════════════
 function filtrarPorTab() {
   if (tabActual === 'todos') return expedientes;
   return expedientes.filter(e => e.tipo === tabActual);
@@ -492,9 +412,6 @@ function filtrarLista() {
   return lista;
 }
 
-// ═══════════════════════════════════════════════════════
-// RENDER LISTA
-// ═══════════════════════════════════════════════════════
 function renderLista() {
   renderStats();
   renderAlertas();
@@ -512,12 +429,7 @@ function renderTarjeta(e) {
   const fin = calcFinanciero(e);
   const borde = getBorde(e);
   const tipoBadge = e.tipo === 'EX' ? '<span class="t-tipo-badge tipo-ex">Extranjería</span>' : '<span class="t-tipo-badge tipo-na">Nacionalidad</span>';
-  const estadoClass = {
-    'CONCEDIDO':'estado-concedido','DENEGADO':'estado-denegado','EN TRÁMITE':'estado-tramite',
-    'REQUERIMIENTO':'estado-requerimiento','CONTESTADO REQUERIMIENTO':'estado-contestado',
-    'RESUELTO':'estado-resuelto','SILENCIO ADM.':'estado-silencio','ARCHIVADO':'estado-resuelto'
-  }[e.estado] || 'estado-tramite';
-
+  const estadoClass = {'CONCEDIDO':'estado-concedido','DENEGADO':'estado-denegado','EN TRÁMITE':'estado-tramite','REQUERIMIENTO':'estado-requerimiento','CONTESTADO REQUERIMIENTO':'estado-contestado','RESUELTO':'estado-resuelto','SILENCIO ADM.':'estado-silencio','ARCHIVADO':'estado-resuelto'}[e.estado] || 'estado-tramite';
   let vtoHtml = '';
   const hoyStr = fechaHoy();
   if (e.tipo === 'EX' && fc.limPagoTasas && !e.fechaPagoTasas) {
@@ -531,22 +443,16 @@ function renderTarjeta(e) {
   } else if (fc.limRespReq && e.fechaPresReq) {
     vtoHtml = `<div class="t-vto verde">✓ Req. presentado ${fD(e.fechaPresReq)}</div>`;
   } else if (fc.silencioAdm) {
-    const d = diasRestantes(fc.silencioAdm);
     vtoHtml = `<div class="t-vto gris">Silencio adm: ${fD(fc.silencioAdm)}</div>`;
   }
-
   const impClass = fin.pendiente > 0 ? 'pendiente' : fin.pendiente === 0 && fin.total > 0 ? 'cobrado' : 'parcial';
   const impTexto = fin.pendiente > 0 ? `Pendiente: ${fin.pendiente.toLocaleString('es-ES')}€` : fin.total > 0 ? 'Cobrado ✓' : '';
-
   const menor = e.esMenor ? `<div class="t-menor">Menor — Factura: ${e.titularFactura||'—'}</div>` : '';
-
-  // barra de progreso
   const pasos = e.tipo === 'EX'
     ? [!!e.fechaCreacion, !!e.fechaPresentacion, !!e.fechaPagoTasas, !!e.fechaPresReq || !e.fechaRecepReq, !!e.estado && ['CONCEDIDO','DENEGADO','RESUELTO'].includes(e.estado)]
     : [!!e.fechaCreacion, !!e.fechaPresentacion, !!e.fechaPresReq || !e.fechaRecepReq, !!e.estado && ['CONCEDIDO','DENEGADO','RESUELTO'].includes(e.estado)];
   const pct = Math.round(pasos.filter(Boolean).length / pasos.length * 100);
   const barColor = e.estado==='CONCEDIDO'?'#27ae60':e.estado==='DENEGADO'?'#e74c3c':e.estado==='REQUERIMIENTO'?'#e67e22':'#3498db';
-
   return `<div class="tarjeta ${borde}" onclick="abrirDetalle('${e.id}')">
     <div class="t-top">
       <div>
@@ -580,17 +486,13 @@ function renderTarjeta(e) {
   </div>`;
 }
 
-// ═══════════════════════════════════════════════════════
-// FORMULARIO NUEVO / EDITAR
-// ═══════════════════════════════════════════════════════
 function abrirNuevo() {
   expEditando = null;
   document.getElementById('modalTitle').textContent = 'Nuevo expediente';
   document.getElementById('modalBody').innerHTML = renderFormulario(null);
   document.getElementById('modalFooter').innerHTML = `
     <button class="btn btn-secondary" onclick="cerrarModal()">Cancelar</button>
-    <button class="btn btn-primary" onclick="guardarExp()">Guardar expediente</button>
-  `;
+    <button class="btn btn-primary" onclick="guardarExp()">Guardar expediente</button>`;
   iniciarFormulario(null);
   document.getElementById('overlay').classList.add('visible');
 }
@@ -604,8 +506,7 @@ function abrirDetalle(id) {
   document.getElementById('modalFooter').innerHTML = `
     <button class="btn btn-danger" onclick="eliminarExp('${id}')">Eliminar</button>
     <button class="btn btn-secondary" onclick="cerrarModal()">Cerrar</button>
-    <button class="btn btn-primary" onclick="editarExp('${id}')">Editar</button>
-  `;
+    <button class="btn btn-primary" onclick="editarExp('${id}')">Editar</button>`;
   document.getElementById('overlay').classList.add('visible');
 }
 
@@ -617,8 +518,7 @@ function editarExp(id) {
   document.getElementById('modalBody').innerHTML = renderFormulario(exp);
   document.getElementById('modalFooter').innerHTML = `
     <button class="btn btn-secondary" onclick="abrirDetalle('${id}')">Cancelar</button>
-    <button class="btn btn-primary" onclick="guardarExp()">Guardar cambios</button>
-  `;
+    <button class="btn btn-primary" onclick="guardarExp()">Guardar cambios</button>`;
   iniciarFormulario(exp);
   document.getElementById('overlay').classList.add('visible');
 }
@@ -626,7 +526,6 @@ function editarExp(id) {
 function renderDetalle(exp) {
   const fc = calcFechas(exp);
   const fin = calcFinanciero(exp);
-
   const timeline = e => {
     const pasos = e.tipo === 'EX' ? [
       { label:'Apertura expediente', fecha:e.fechaCreacion, done:!!e.fechaCreacion },
@@ -664,22 +563,11 @@ function renderDetalle(exp) {
         </div>
       </div>`).join('')}</div>`;
   };
-
-  const pagosHtml = (exp.pagos||[]).map((p,i) => `
+  const pagosHtml = (exp.pagos||[]).map(p => `
     <div class="factura-row">
       <span>${p.fecha?fD(p.fecha):'—'}${p.recibo?' · Recibo '+p.recibo:''}</span>
       <span style="font-weight:600;">${round2(p.importe).toLocaleString('es-ES',{minimumFractionDigits:2})}€</span>
     </div>`).join('') || '<div style="color:#aaa;font-size:13px;">Sin pagos registrados</div>';
-
-  const checklistHtml = getChecklist(exp.tipo, exp.gestion).map(item => {
-    const marcado = (exp.checklist||[]).includes(item);
-    return `<div class="check-item ${marcado?'done':''}"><input type="checkbox" ${marcado?'checked':''} disabled> ${item}</div>`;
-  }).join('');
-
-  const menor = exp.esMenor ? `<div style="background:#fff9ee;border:1px solid #f0d890;border-radius:6px;padding:10px 14px;margin-bottom:12px;font-size:13px;">
-    <b>Cliente menor de edad</b> — Titular factura: <b>${exp.titularFactura||'—'}</b> · DNI titular: <b>${exp.dniTitular||'—'}</b>
-  </div>` : '';
-
   return `
     <div style="margin-bottom:12px;">
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
@@ -690,7 +578,6 @@ function renderDetalle(exp) {
       ${exp.numExtj?`<div style="font-size:13px;color:#555;">Nº Extranjería: <b>${exp.numExtj}</b></div>`:''}
       ${exp.observaciones?`<div style="margin-top:8px;font-size:13px;color:#444;background:#f9f9f9;border-radius:6px;padding:8px 12px;">${exp.observaciones}</div>`:''}
     </div>
-    ${menor}
     <div class="detalle-tabs">
       <div class="detalle-tab active" onclick="switchDetalleTab(this,'tab-timeline')">Cronología</div>
       <div class="detalle-tab" onclick="switchDetalleTab(this,'tab-factura')">Facturación</div>
@@ -698,11 +585,7 @@ function renderDetalle(exp) {
     </div>
     <div id="tab-timeline">${timeline(exp)}</div>
     <div id="tab-factura" style="display:none;">
-      ${exp.esMenor ? `<div style="background:#fff9ee;border:1px solid #f0d890;border-radius:6px;padding:10px 14px;margin-bottom:12px;font-size:13px;">
-        <b>⚠ Cliente menor — Factura a nombre de:</b> ${exp.titularFactura||'—'} · DNI: ${exp.dniTitular||'—'}
-      </div>` : ''}
       <div class="factura-resumen">
-        <div class="factura-row"><span style="color:#888;">Titular factura</span><span style="font-weight:600;">${exp.esMenor?(exp.titularFactura||'—'):exp.cliente}</span></div>
         <div class="factura-row"><span style="color:#888;">Importe total servicio</span><span style="font-weight:600;">${round2(exp.importeTotal).toLocaleString('es-ES',{minimumFractionDigits:2})}€</span></div>
         <div style="border-top:1px solid #eee;margin:6px 0;padding-top:8px;font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.5px;">Pagos recibidos</div>
         ${pagosHtml}
@@ -717,12 +600,6 @@ function renderDetalle(exp) {
           <button onclick="cambiarEstadoFactura('${exp.id}','${s}')" style="flex:1;padding:8px;border:1px solid ${exp.estadoFactura===s?'#1a2e4a':'#ddd'};border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;color:${exp.estadoFactura===s?'white':'#555'};background:${exp.estadoFactura===s?'#1a2e4a':'white'};">${s}</button>
         `).join('')}
       </div>
-      ${exp.estadoFactura==='FACTURADO' ? `
-        <div style="background:#e8f5ee;border:1px solid #a8d5b5;border-radius:6px;padding:10px 14px;font-size:13px;">
-          <b>Nº Factura:</b>
-          <input type="text" id="inp_numFactura" value="${exp.numFactura||''}" placeholder="AS26/001" style="border:1px solid #ccc;border-radius:4px;padding:4px 8px;font-size:13px;margin-left:8px;width:120px;"
-            onchange="guardarNumFactura('${exp.id}',this.value)">
-        </div>` : ''}
     </div>
     <div id="tab-checklist" style="display:none;">
       <div style="font-size:12px;color:#888;margin-bottom:10px;">Marca los documentos que ya tienes del cliente</div>
@@ -734,8 +611,7 @@ function renderDetalle(exp) {
           </label>`;
         }).join('')}
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
 function switchDetalleTab(el, tabId) {
@@ -754,21 +630,16 @@ function renderFormulario(exp) {
     <div class="seccion">
       <div class="seccion-title">📋 Tipo y datos básicos</div>
       <div class="grid2">
-        <div class="campo">
-          <label>Tipo de expediente *</label>
+        <div class="campo"><label>Tipo de expediente *</label>
           <select id="f_tipo" onchange="onTipoChange()">
             <option value="EX" ${tipo==='EX'?'selected':''}>🌍 Extranjería</option>
             <option value="NA" ${tipo==='NA'?'selected':''}>🇪🇸 Nacionalidad</option>
           </select>
         </div>
-        <div class="campo">
-          <label>Nº Expediente</label>
-          <input type="text" id="f_numExp" value="${e.numExp||''}" placeholder="Auto (EX26/001)">
-        </div>
+        <div class="campo"><label>Nº Expediente</label><input type="text" id="f_numExp" value="${e.numExp||''}" placeholder="Auto (EX26/001)"></div>
       </div>
       <div class="grid1" style="margin-top:10px;">
-        <div class="campo">
-          <label>Tipo de gestión *</label>
+        <div class="campo"><label>Tipo de gestión *</label>
           <select id="f_gestion" onchange="onGestionChange()">
             <option value="">— Seleccionar —</option>
             ${getListaGestiones(tipo).map(g=>`<option value="${g}" ${e.gestion===g?'selected':''}>${g}</option>`).join('')}
@@ -777,36 +648,22 @@ function renderFormulario(exp) {
         </div>
       </div>
       <div class="grid1" id="campo_gestion_libre" style="display:${e.gestion&&!getListaGestiones(tipo).includes(e.gestion)?'grid':'none'};margin-top:8px;">
-        <div class="campo">
-          <label>Gestión (escribir)</label>
-          <input type="text" id="f_gestion_libre" value="${e.gestion&&!getListaGestiones(tipo).includes(e.gestion)?e.gestion:''}" placeholder="Descripción de la gestión">
-        </div>
+        <div class="campo"><label>Gestión (escribir)</label><input type="text" id="f_gestion_libre" value="${e.gestion&&!getListaGestiones(tipo).includes(e.gestion)?e.gestion:''}" placeholder="Descripción de la gestión"></div>
       </div>
     </div>
-
     <div class="seccion">
       <div class="seccion-title">👤 Cliente</div>
       <div class="grid2">
-        <div class="campo">
-          <label>Cliente (nombre completo) *</label>
-          <input type="text" id="f_cliente" value="${e.cliente||''}" placeholder="NOMBRE APELLIDO1 APELLIDO2">
-        </div>
-        <div class="campo">
-          <label>NIE / Pasaporte</label>
+        <div class="campo"><label>Cliente (nombre completo) *</label><input type="text" id="f_cliente" value="${e.cliente||''}" placeholder="NOMBRE APELLIDO1 APELLIDO2"></div>
+        <div class="campo"><label>NIE / Pasaporte</label>
           <input type="text" id="f_nie" value="${e.nie||''}" placeholder="X1234567A" style="text-transform:uppercase;">
           <button type="button" onclick="rellenarDesdeMaestroEX()" style="margin-top:4px;padding:4px 10px;border:1px solid #ccc;border-radius:5px;cursor:pointer;font-size:11px;background:#f9f9f9">🔍 Buscar en ClientesMAESTRO</button>
           <span id="maestro-status-ex" style="font-size:11px;margin-left:6px"></span>
         </div>
       </div>
       <div class="grid2" style="margin-top:10px;">
-        <div class="campo">
-          <label>Otros clientes / familiares</label>
-          <input type="text" id="f_otros" value="${e.otrosClientes||''}" placeholder="Nombres adicionales">
-        </div>
-        <div class="campo">
-          <label>Nº Expediente Extranjería (oficina)</label>
-          <input type="text" id="f_numExtj" value="${e.numExtj||''}" placeholder="I04202503979164">
-        </div>
+        <div class="campo"><label>Otros clientes / familiares</label><input type="text" id="f_otros" value="${e.otrosClientes||''}" placeholder="Nombres adicionales"></div>
+        <div class="campo"><label>Nº Expediente Extranjería (oficina)</label><input type="text" id="f_numExtj" value="${e.numExtj||''}" placeholder="I04202503979164"></div>
       </div>
       <div style="margin-top:12px;">
         <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;">
@@ -814,121 +671,56 @@ function renderFormulario(exp) {
         </label>
       </div>
       <div id="bloque_menor" style="display:${e.esMenor?'grid':'none'};margin-top:10px;" class="grid2">
-        <div class="campo">
-          <label>Nombre titular factura (padre/madre)</label>
-          <input type="text" id="f_titular" value="${e.titularFactura||''}" placeholder="NOMBRE APELLIDO1 APELLIDO2">
-        </div>
-        <div class="campo">
-          <label>DNI titular factura</label>
-          <input type="text" id="f_dniTitular" value="${e.dniTitular||''}" placeholder="12345678A" style="text-transform:uppercase;">
-        </div>
+        <div class="campo"><label>Nombre titular factura (padre/madre)</label><input type="text" id="f_titular" value="${e.titularFactura||''}" placeholder="NOMBRE APELLIDO1 APELLIDO2"></div>
+        <div class="campo"><label>DNI titular factura</label><input type="text" id="f_dniTitular" value="${e.dniTitular||''}" placeholder="12345678A" style="text-transform:uppercase;"></div>
       </div>
     </div>
-
     <div class="seccion">
       <div class="seccion-title">📅 Fechas del trámite</div>
       <div class="grid3">
-        <div class="campo">
-          <label>Fecha de creación</label>
-          <input type="date" id="f_fechaCreacion" value="${e.fechaCreacion||fechaHoy()}">
+        <div class="campo"><label>Fecha de creación</label><input type="date" id="f_fechaCreacion" value="${e.fechaCreacion||fechaHoy()}"></div>
+        <div class="campo"><label>Documentación completa</label>
+          <select id="f_docCompleta"><option value="NO" ${e.docCompleta!=='SI'?'selected':''}>No</option><option value="SI" ${e.docCompleta==='SI'?'selected':''}>Sí</option></select>
         </div>
-        <div class="campo">
-          <label>Documentación completa</label>
-          <select id="f_docCompleta">
-            <option value="NO" ${e.docCompleta!=='SI'?'selected':''}>No</option>
-            <option value="SI" ${e.docCompleta==='SI'?'selected':''}>Sí</option>
-          </select>
-        </div>
-        <div class="campo">
-          <label>Fecha de presentación</label>
-          <input type="date" id="f_fechaPresentacion" value="${e.fechaPresentacion||''}" onchange="calcMostrarFechas()">
-        </div>
+        <div class="campo"><label>Fecha de presentación</label><input type="date" id="f_fechaPresentacion" value="${e.fechaPresentacion||''}" onchange="calcMostrarFechas()"></div>
       </div>
-
       <div id="bloque_fechas_ex" style="display:${tipo==='EX'?'block':'none'};margin-top:12px;">
         <div class="grid3">
-          <div class="campo">
-            <label>Total tasas (€)</label>
-            <input type="number" id="f_totalTasas" value="${e.totalTasas||''}" placeholder="0.00" step="0.01">
-          </div>
-          <div class="campo">
-            <label>Tasas pagadas</label>
-            <select id="f_tasasPagadas">
-              <option value="NO" ${e.tasasPagadas!=='SI'?'selected':''}>No</option>
-              <option value="SI" ${e.tasasPagadas==='SI'?'selected':''}>Sí</option>
-            </select>
-          </div>
-          <div class="campo">
-            <label>Tasas presentadas</label>
-            <select id="f_tasasPresentadas">
-              <option value="NO" ${e.tasasPresentadas!=='SI'?'selected':''}>No</option>
-              <option value="SI" ${e.tasasPresentadas==='SI'?'selected':''}>Sí</option>
-            </select>
-          </div>
+          <div class="campo"><label>Total tasas (€)</label><input type="number" id="f_totalTasas" value="${e.totalTasas||''}" placeholder="0.00" step="0.01"></div>
+          <div class="campo"><label>Tasas pagadas</label><select id="f_tasasPagadas"><option value="NO" ${e.tasasPagadas!=='SI'?'selected':''}>No</option><option value="SI" ${e.tasasPagadas==='SI'?'selected':''}>Sí</option></select></div>
+          <div class="campo"><label>Tasas presentadas</label><select id="f_tasasPresentadas"><option value="NO" ${e.tasasPresentadas!=='SI'?'selected':''}>No</option><option value="SI" ${e.tasasPresentadas==='SI'?'selected':''}>Sí</option></select></div>
         </div>
         <div class="grid3" style="margin-top:10px;">
-          <div class="campo">
-            <label>Fecha req. de tasas</label>
-            <input type="date" id="f_fechaReqTasas" value="${e.fechaReqTasas||''}" onchange="calcMostrarFechas()">
-          </div>
-          <div class="campo">
-            <label>Fecha pago tasas</label>
-            <input type="date" id="f_fechaPagoTasas" value="${e.fechaPagoTasas||''}">
-          </div>
-          <div class="campo">
-            <label>Fecha presentación tasas</label>
-            <input type="date" id="f_fechaPresTasas" value="${e.fechaPresTasas||''}">
-          </div>
+          <div class="campo"><label>Fecha req. de tasas</label><input type="date" id="f_fechaReqTasas" value="${e.fechaReqTasas||''}" onchange="calcMostrarFechas()"></div>
+          <div class="campo"><label>Fecha pago tasas</label><input type="date" id="f_fechaPagoTasas" value="${e.fechaPagoTasas||''}"></div>
+          <div class="campo"><label>Fecha presentación tasas</label><input type="date" id="f_fechaPresTasas" value="${e.fechaPresTasas||''}"></div>
         </div>
         <div id="calc_limTasas" style="margin-top:8px;display:none;"></div>
       </div>
-
       <div class="grid3" style="margin-top:12px;">
-        <div class="campo">
-          <label>Fecha recepción requerimiento doc.</label>
-          <input type="date" id="f_fechaRecepReq" value="${e.fechaRecepReq||''}" onchange="calcMostrarFechas()">
-        </div>
-        <div class="campo">
-          <label>Fecha presentación requerimiento</label>
-          <input type="date" id="f_fechaPresReq" value="${e.fechaPresReq||''}">
-        </div>
-        <div class="campo">
-          <label>Fecha respuesta / resolución</label>
-          <input type="date" id="f_fechaRespuesta" value="${e.fechaRespuesta||''}">
-        </div>
+        <div class="campo"><label>Fecha recepción requerimiento doc.</label><input type="date" id="f_fechaRecepReq" value="${e.fechaRecepReq||''}" onchange="calcMostrarFechas()"></div>
+        <div class="campo"><label>Fecha presentación requerimiento</label><input type="date" id="f_fechaPresReq" value="${e.fechaPresReq||''}"></div>
+        <div class="campo"><label>Fecha respuesta / resolución</label><input type="date" id="f_fechaRespuesta" value="${e.fechaRespuesta||''}"></div>
       </div>
       <div id="calc_limReq" style="margin-top:8px;display:none;"></div>
       <div id="calc_silencio" style="margin-top:6px;display:none;"></div>
     </div>
-
     <div class="seccion">
       <div class="seccion-title">📊 Estado</div>
       <div class="grid2">
-        <div class="campo">
-          <label>Estado del expediente</label>
+        <div class="campo"><label>Estado del expediente</label>
           <select id="f_estado">
             ${['EN TRÁMITE','REQUERIMIENTO','CONTESTADO REQUERIMIENTO','CONCEDIDO','DENEGADO','SILENCIO ADM.','RESUELTO','ARCHIVADO'].map(s=>`<option value="${s}" ${e.estado===s?'selected':''}>${s}</option>`).join('')}
           </select>
         </div>
-        <div class="campo">
-          <label>Traducción documentos</label>
-          <select id="f_traduccion">
-            <option value="NO" ${e.traduccion!=='SI'?'selected':''}>No</option>
-            <option value="SI" ${e.traduccion==='SI'?'selected':''}>Sí</option>
-          </select>
-        </div>
+        <div class="campo"><label>Traducción documentos</label><select id="f_traduccion"><option value="NO" ${e.traduccion!=='SI'?'selected':''}>No</option><option value="SI" ${e.traduccion==='SI'?'selected':''}>Sí</option></select></div>
       </div>
     </div>
-
     <div class="seccion">
       <div class="seccion-title">💰 Facturación al cliente</div>
       <div class="grid2">
-        <div class="campo">
-          <label>Importe total del servicio (€)</label>
-          <input type="number" id="f_importeTotal" value="${e.importeTotal||''}" placeholder="0.00" step="0.01">
-        </div>
-        <div class="campo">
-          <label>Estado de facturación</label>
+        <div class="campo"><label>Importe total del servicio (€)</label><input type="number" id="f_importeTotal" value="${e.importeTotal||''}" placeholder="0.00" step="0.01"></div>
+        <div class="campo"><label>Estado de facturación</label>
           <select id="f_estadoFactura">
             <option value="EN TRÁMITE" ${e.estadoFactura==='EN TRÁMITE'||!e.estadoFactura?'selected':''}>En trámite</option>
             <option value="LISTO" ${e.estadoFactura==='LISTO'?'selected':''}>Listo para facturar</option>
@@ -942,19 +734,12 @@ function renderFormulario(exp) {
         <button class="btn-add-pago" onclick="addPago()">+ Añadir pago</button>
       </div>
     </div>
-
     <div class="seccion">
       <div class="seccion-title">📝 Observaciones</div>
-      <div class="campo">
-        <textarea id="f_observaciones" rows="3" placeholder="Notas, observaciones...">${e.observaciones||''}</textarea>
-      </div>
-    </div>
-  `;
+      <div class="campo"><textarea id="f_observaciones" rows="3" placeholder="Notas, observaciones...">${e.observaciones||''}</textarea></div>
+    </div>`;
 }
 
-// ═══════════════════════════════════════════════════════
-// GESTIÓN PAGOS EN FORMULARIO
-// ═══════════════════════════════════════════════════════
 let pagosTemp = [];
 
 function iniciarFormulario(exp) {
@@ -976,43 +761,27 @@ function renderPagosForm() {
     </div>`).join('');
 }
 
-function addPago() {
-  pagosTemp.push({ fecha: fechaHoy(), importe: 0, recibo: '' });
-  renderPagosForm();
-}
+function addPago() { pagosTemp.push({ fecha: fechaHoy(), importe: 0, recibo: '' }); renderPagosForm(); }
+function rmPago(i) { pagosTemp.splice(i, 1); renderPagosForm(); }
 
-function rmPago(i) {
-  pagosTemp.splice(i, 1);
-  renderPagosForm();
-}
-
-// ═══════════════════════════════════════════════════════
-// CÁLCULOS EN FORMULARIO
-// ═══════════════════════════════════════════════════════
 function calcMostrarFechas() {
   const tipo = document.getElementById('f_tipo')?.value;
   const fPres = document.getElementById('f_fechaPresentacion')?.value;
   const fReqTasas = document.getElementById('f_fechaReqTasas')?.value;
   const fRecepReq = document.getElementById('f_fechaRecepReq')?.value;
-
   const limTasasEl = document.getElementById('calc_limTasas');
   const limReqEl = document.getElementById('calc_limReq');
   const silencioEl = document.getElementById('calc_silencio');
-
   if (tipo === 'EX' && fReqTasas && limTasasEl) {
-    const lim = sumarDias(fReqTasas, 10);
-    const d = diasRestantes(lim);
+    const lim = sumarDias(fReqTasas, 10); const d = diasRestantes(lim);
     limTasasEl.style.display='block';
     limTasasEl.innerHTML=`<div class="fecha-calc ${d<=3?'urgente':''}">⏱ Límite pago tasas: <b>${fD(lim)}</b>${d<=0?' — VENCIDO':' (quedan '+d+' días)'}</div>`;
   } else if (limTasasEl) limTasasEl.style.display='none';
-
   if (fRecepReq && limReqEl) {
-    const lim = tipo==='EX' ? sumarDias(fRecepReq,10) : sumarMeses(fRecepReq,3);
-    const d = diasRestantes(lim);
+    const lim = tipo==='EX' ? sumarDias(fRecepReq,10) : sumarMeses(fRecepReq,3); const d = diasRestantes(lim);
     limReqEl.style.display='block';
     limReqEl.innerHTML=`<div class="fecha-calc ${d<=5?'urgente':''}">⏱ Límite respuesta requerimiento: <b>${fD(lim)}</b>${d<=0?' — VENCIDO':' (quedan '+d+' días)'}</div>`;
   } else if (limReqEl) limReqEl.style.display='none';
-
   if (fPres && silencioEl) {
     const lim = tipo==='EX' ? sumarMeses(fPres,3) : sumarAnios(fPres,2);
     silencioEl.style.display='block';
@@ -1030,7 +799,6 @@ function onTipoChange() {
       getListaGestiones(tipo).map(g=>`<option value="${g}">${g}</option>`).join('') +
       '<option value="OTRO">Otro (escribir)</option>';
   }
-  // Auto-generar nº expediente si está vacío
   const numEl = document.getElementById('f_numExp');
   if (numEl && !numEl.value) numEl.value = nextNumExp(tipo);
   calcMostrarFechas();
@@ -1048,21 +816,15 @@ function toggleMenor() {
   if (bloque) bloque.style.display = cb?.checked ? 'grid' : 'none';
 }
 
-// ═══════════════════════════════════════════════════════
-// GUARDAR
-// ═══════════════════════════════════════════════════════
 function guardarExp() {
   const tipo = document.getElementById('f_tipo')?.value || 'EX';
   const gestionSel = document.getElementById('f_gestion')?.value || '';
   const gestion = gestionSel === 'OTRO' ? (document.getElementById('f_gestion_libre')?.value||'') : gestionSel;
   const cliente = (document.getElementById('f_cliente')?.value||'').trim().toUpperCase();
-
   if (!cliente) { alert('El nombre del cliente es obligatorio'); return; }
   if (!gestion) { alert('El tipo de gestión es obligatorio'); return; }
-
   const numExpInput = (document.getElementById('f_numExp')?.value||'').trim();
   const numExp = numExpInput || nextNumExp(tipo);
-
   const exp = {
     id: expEditando || ('exp_' + Date.now()),
     tipo, numExp, gestion, cliente,
@@ -1086,7 +848,6 @@ function guardarExp() {
     pagos: pagosTemp,
     checklist: expEditando ? (expedientes.find(e=>e.id===expEditando)?.checklist||[]) : [],
   };
-
   if (tipo === 'EX') {
     exp.totalTasas = parseFloat(document.getElementById('f_totalTasas')?.value)||0;
     exp.tasasPagadas = document.getElementById('f_tasasPagadas')?.value||'NO';
@@ -1095,29 +856,20 @@ function guardarExp() {
     exp.fechaPagoTasas = document.getElementById('f_fechaPagoTasas')?.value||'';
     exp.fechaPresTasas = document.getElementById('f_fechaPresTasas')?.value||'';
   }
-
   if (expEditando) {
     const idx = expedientes.findIndex(e=>e.id===expEditando);
     if (idx>=0) expedientes[idx] = exp;
   } else {
     expedientes.push(exp);
   }
-
   guardarLocal();
   sincronizarSheets();
   enviarVencimientosExt(exp);
-  // ── ClientesMAESTRO ──────────────────────────────────────
   const _dniM = (exp.esMenor && exp.dniTitular) ? exp.dniTitular : exp.nie;
   const _nomM = (exp.esMenor && exp.titularFactura) ? exp.titularFactura : exp.cliente;
   if (_dniM || _nomM) {
     const _p = (_nomM||'').trim().split(/\s+/);
-    guardarEnMaestro({
-      DNI_NIE:   (_dniM||'').toUpperCase().replace(/-/g,''),
-      Nombre:    _p[0] || _nomM || '',
-      Apellido1: _p[1] || '',
-      Apellido2: _p[2] || '',
-      Tipo: 'fisica'
-    });
+    guardarEnMaestro({ DNI_NIE:(_dniM||'').toUpperCase().replace(/-/g,''), Nombre:_p[0]||_nomM||'', Apellido1:_p[1]||'', Apellido2:_p[2]||'', Tipo:'fisica' });
   }
   cerrarModal();
   renderLista();
@@ -1132,15 +884,10 @@ function eliminarExp(id) {
   renderLista();
 }
 
-// ═══════════════════════════════════════════════════════
-// PERSISTENCIA
-// ═══════════════════════════════════════════════════════
-function guardarLocal() {
-  localStorage.setItem('extExpedientes', JSON.stringify(expedientes));
-}
+function guardarLocal() { localStorage.setItem('extExpedientes', JSON.stringify(expedientes)); }
 
 function sincronizarSheets() {
-  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes('TU_URL')) return;
+  if (!APPS_SCRIPT_URL) return;
   const datos = [
     ['numExp','tipo','gestion','cliente','nie','otrosClientes','numExtj','esMenor','titularFactura','dniTitular',
      'fechaCreacion','docCompleta','fechaPresentacion','totalTasas','tasasPagadas','tasasPresentadas',
@@ -1159,130 +906,62 @@ function sincronizarSheets() {
 }
 
 function cargarDeSheets() {
-  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes('TU_URL')) return;
+  if (!APPS_SCRIPT_URL) return;
   fetch(APPS_SCRIPT_URL + '?action=leer&hoja=ExtranjeriaExp')
     .then(r=>r.json()).then(d=>{
       if (d && d.length > 1) {
         const [cab,...filas] = d;
         const remoto = filas.filter(f=>f[0]).map(f=>{
-          const o = {};
-          cab.forEach((c,i)=>o[c]=f[i]);
+          const o = {}; cab.forEach((c,i)=>o[c]=f[i]);
           o.pagos = (() => { try { return JSON.parse(o.pagos_json||'[]'); } catch(e){ return []; } })();
           o.checklist = (() => { try { return JSON.parse(o.checklist_json||'[]'); } catch(e){ return []; } })();
           o.id = o.id || ('exp_'+o.numExp);
           o.esMenor = o.esMenor === 'SI';
-          // Garantizar campos numéricos nunca undefined
           o.importeTotal = parseFloat(o.importeTotal)||0;
           o.totalTasas = parseFloat(o.totalTasas)||0;
           return o;
-        });
+        }).filter(obj=>obj.numExp);
         if (remoto.length) { expedientes = remoto; guardarLocal(); renderLista(); }
         else if (expedientes.length) sincronizarSheets();
       }
     }).catch(()=>{});
 }
 
-// ═══════════════════════════════════════════════════════
-// CHECKLISTS DE DOCUMENTACIÓN
-// ═══════════════════════════════════════════════════════
 function getListaGestiones(tipo) {
-  if (tipo === 'EX') return [
-    'RESIDENCIA TEMPORAL POR REAGRUPACIÓN FAMILIAR',
-    'REAGRUPACIÓN FAMILIAR',
-    'RESIDENCIA TEMPORAL INICIAL CTA. AJENA',
-    'RESIDENCIA TEMPORAL INICIAL CTA. PROPIA',
-    'RENOVACIÓN RESIDENCIA Y TRABAJO CTA. AJENA',
-    'RENOVACIÓN RESIDENCIA Y TRABAJO CTA. PROPIA',
-    'RENOVACIÓN RESIDENCIA TEMPORAL',
-    'RESIDENCIA DE LARGA DURACIÓN (TIE)',
-    'AUTORIZACIÓN DE REGRESO',
-    'MODIFICACIÓN DE AUTORIZACIÓN DE RESIDENCIA',
-    'TARJETA DE FAMILIAR DE CIUDADANO UE',
-    'INSCRIPCIÓN REGISTRO CENTRAL RESIDENTES UE',
-    'RENOVACIÓN TARJETA FAMILIAR CIUDADANO UE',
-    'PERMISO TRABAJO TRANSFRONTERIZO',
-    'EXENCIÓN EXAMEN CERVANTES',
-    'SOLICITUD CARTA DE INVITACIÓN',
-    'SOLICITUD HISTÓRICO EMPADRONAMIENTO',
-    'CERTIFICADO NIE',
-    'SOLICITUD NIE',
-  ];
-  return [
-    'SOLICITUD DE NACIONALIDAD POR RESIDENCIA',
-    'SOLICITUD DE NACIONALIDAD (MENOR)',
-    'EXENCIÓN EXAMEN CERVANTES (NACIONALIDAD)',
-    'NACIONALIDAD POR CARTA DE NATURALEZA',
-    'RECUPERACIÓN DE NACIONALIDAD',
-    'RENOVACIÓN DNI TRAS NACIONALIDAD',
-  ];
+  if (tipo === 'EX') return ['RESIDENCIA TEMPORAL POR REAGRUPACIÓN FAMILIAR','REAGRUPACIÓN FAMILIAR','RESIDENCIA TEMPORAL INICIAL CTA. AJENA','RESIDENCIA TEMPORAL INICIAL CTA. PROPIA','RENOVACIÓN RESIDENCIA Y TRABAJO CTA. AJENA','RENOVACIÓN RESIDENCIA Y TRABAJO CTA. PROPIA','RENOVACIÓN RESIDENCIA TEMPORAL','RESIDENCIA DE LARGA DURACIÓN (TIE)','AUTORIZACIÓN DE REGRESO','MODIFICACIÓN DE AUTORIZACIÓN DE RESIDENCIA','TARJETA DE FAMILIAR DE CIUDADANO UE','INSCRIPCIÓN REGISTRO CENTRAL RESIDENTES UE','RENOVACIÓN TARJETA FAMILIAR CIUDADANO UE','PERMISO TRABAJO TRANSFRONTERIZO','EXENCIÓN EXAMEN CERVANTES','SOLICITUD CARTA DE INVITACIÓN','SOLICITUD HISTÓRICO EMPADRONAMIENTO','CERTIFICADO NIE','SOLICITUD NIE'];
+  return ['SOLICITUD DE NACIONALIDAD POR RESIDENCIA','SOLICITUD DE NACIONALIDAD (MENOR)','EXENCIÓN EXAMEN CERVANTES (NACIONALIDAD)','NACIONALIDAD POR CARTA DE NATURALEZA','RECUPERACIÓN DE NACIONALIDAD','RENOVACIÓN DNI TRAS NACIONALIDAD'];
 }
 
 function getChecklist(tipo, gestion) {
-  const base_ex = ['Mandato firmado por el cliente', 'Pasaporte en vigor (copia y original)', 'NIE actual (si lo tiene)', 'Empadronamiento actualizado', 'Fotografía reciente', 'Modelo de solicitud cumplimentado', 'Justificante pago tasa'];
-  const base_na = ['Mandato firmado por el cliente', 'Pasaporte en vigor (copia y original)', 'NIE en vigor', 'Certificado de nacimiento (apostillado y traducido)', 'Certificado de empadronamiento histórico', 'Certificado de antecedentes penales del país de origen (apostillado y traducido)', 'Certificado de antecedentes penales de España (Ministerio Justicia)', 'Acta de manifestaciones (Notaría)', 'Justificante pago tasa 790 código 026', 'Certificado CCSE (cultura)', 'Certificado DELE A2 o superior (idioma)', 'Fotografía reciente'];
+  const base_ex = ['Mandato firmado por el cliente','Pasaporte en vigor (copia y original)','NIE actual (si lo tiene)','Empadronamiento actualizado','Fotografía reciente','Modelo de solicitud cumplimentado','Justificante pago tasa'];
+  const base_na = ['Mandato firmado por el cliente','Pasaporte en vigor (copia y original)','NIE en vigor','Certificado de nacimiento (apostillado y traducido)','Certificado de empadronamiento histórico','Certificado de antecedentes penales del país de origen (apostillado y traducido)','Certificado de antecedentes penales de España (Ministerio Justicia)','Acta de manifestaciones (Notaría)','Justificante pago tasa 790 código 026','Certificado CCSE (cultura)','Certificado DELE A2 o superior (idioma)','Fotografía reciente'];
   const extras = {
-    'REAGRUPACIÓN FAMILIAR': ['Contrato de trabajo o nóminas últimos 3 meses', 'Libro de familia o documentos que acrediten vínculos familiares', 'Certificado histórico de convivencia', 'Justificante de vivienda adecuada (contrato alquiler/escritura)'],
-    'RESIDENCIA TEMPORAL INICIAL CTA. AJENA': ['Contrato de trabajo firmado por empresa y trabajador', 'Alta en Seguridad Social o autorización previa', 'DNI y CIF del empleador', 'Mandato del empleador', 'Declaración de la empresa'],
+    'REAGRUPACIÓN FAMILIAR': ['Contrato de trabajo o nóminas últimos 3 meses','Libro de familia o documentos que acrediten vínculos familiares','Certificado histórico de convivencia','Justificante de vivienda adecuada (contrato alquiler/escritura)'],
+    'RESIDENCIA TEMPORAL INICIAL CTA. AJENA': ['Contrato de trabajo firmado por empresa y trabajador','Alta en Seguridad Social o autorización previa','DNI y CIF del empleador','Mandato del empleador','Declaración de la empresa'],
     'SOLICITUD DE NACIONALIDAD POR RESIDENCIA': [...base_na],
-    'SOLICITUD DE NACIONALIDAD (MENOR)': [...base_na, 'Autorización de ambos progenitores', 'Libro de familia', 'Certificado escolar'],
+    'SOLICITUD DE NACIONALIDAD (MENOR)': [...base_na,'Autorización de ambos progenitores','Libro de familia','Certificado escolar'],
   };
   const lista = tipo==='EX' ? [...base_ex] : [...base_na];
-  const extra = extras[gestion] || [];
-  extra.forEach(e => { if (!lista.includes(e)) lista.push(e); });
+  (extras[gestion]||[]).forEach(e => { if (!lista.includes(e)) lista.push(e); });
   return lista;
 }
 
-// ═══════════════════════════════════════════════════════
-// DATOS INICIALES (del Excel)
-// ═══════════════════════════════════════════════════════
 function getDatosIniciales() {
   return [
-    { id:'exp_1', tipo:'EX', numExp:'EX25/100', gestion:'REAGRUPACIÓN FAMILIAR', cliente:'AMINA', nie:'TW4321083', otrosClientes:'ASMA MAZOUZ', numExtj:'I04202503979164', esMenor:false, titularFactura:'', dniTitular:'', fechaCreacion:'2025-12-09', docCompleta:'SI', fechaPresentacion:'2025-12-09', totalTasas:10.94, tasasPagadas:'SI', tasasPresentadas:'SI', fechaReqTasas:'', fechaPagoTasas:'', fechaPresTasas:'', fechaRecepReq:'2026-01-26', fechaPresReq:'2026-02-10', fechaRespuesta:'2026-01-26', estado:'DENEGADO', traduccion:'NO', importeTotal:240, estadoFactura:'EN TRÁMITE', pagos:[{fecha:'2025-12-09',importe:100,recibo:''}], checklist:[], observaciones:'SERURO TRADUCIR, CONTRATO MARIDO COMPLETO, ESCRITO SITUACION DE DEPENDENCIA FISICA POR ENFERMEDAD SOBREVENIDA' },
-    { id:'exp_2', tipo:'EX', numExp:'EX25/101', gestion:'RESIDENCIA TEMPORAL INICIAL CTA. AJENA', cliente:'ISSAM EL ALAOUI', nie:'WR5639085', otrosClientes:'ABDUL HERMANO', numExtj:'40020250039307', esMenor:false, titularFactura:'', dniTitular:'', fechaCreacion:'2025-12-01', docCompleta:'SI', fechaPresentacion:'2025-12-01', totalTasas:214.76, tasasPagadas:'SI', tasasPresentadas:'SI', fechaReqTasas:'', fechaPagoTasas:'', fechaPresTasas:'', fechaRecepReq:'', fechaPresReq:'', fechaRespuesta:'', estado:'EN TRÁMITE', traduccion:'NO', importeTotal:240, estadoFactura:'EN TRÁMITE', pagos:[{fecha:'2025-12-01',importe:240,recibo:''}], checklist:[], observaciones:'TASA EMPLEADOR, TASA CLIENTE, MANDATO Y DNI PACO Y CIF EMPRESA' },
-    { id:'exp_3', tipo:'EX', numExp:'EX25/102', gestion:'EXENCIÓN EXAMEN CERVANTES', cliente:'FATIMA OUATOUAT', nie:'X8246347L', otrosClientes:'ILHAM', numExtj:'DIC009845/2025', esMenor:false, titularFactura:'', dniTitular:'', fechaCreacion:'2025-12-09', docCompleta:'SI', fechaPresentacion:'2025-12-09', totalTasas:0, tasasPagadas:'SI', tasasPresentadas:'NO', fechaReqTasas:'', fechaPagoTasas:'', fechaPresTasas:'', fechaRecepReq:'', fechaPresReq:'', fechaRespuesta:'2026-02-10', estado:'CONCEDIDO', traduccion:'NO', importeTotal:180, estadoFactura:'EN TRÁMITE', pagos:[{fecha:'2025-12-09',importe:180,recibo:''}], checklist:[], observaciones:'EXENCION NACIONALIDAD NO TIENE TASA' },
-    { id:'exp_4', tipo:'EX', numExp:'EX25/103', gestion:'SOLICITUD HISTÓRICO EMPADRONAMIENTO', cliente:'ALI MOHSIN', nie:'EU1828003', otrosClientes:'', numExtj:'', esMenor:false, titularFactura:'', dniTitular:'', fechaCreacion:'2025-12-09', docCompleta:'SI', fechaPresentacion:'2025-12-09', totalTasas:0, tasasPagadas:'', tasasPresentadas:'', fechaReqTasas:'', fechaPagoTasas:'', fechaPresTasas:'', fechaRecepReq:'', fechaPresReq:'', fechaRespuesta:'2026-01-19', estado:'RESUELTO', traduccion:'NO', importeTotal:30, estadoFactura:'EN TRÁMITE', pagos:[{fecha:'2025-12-09',importe:30,recibo:''}], checklist:[], observaciones:'SOLO PEDIR CERT EMPADRONAMIENTO' },
-    { id:'exp_5', tipo:'EX', numExp:'EX25/104', gestion:'INSCRIPCIÓN REGISTRO CENTRAL RESIDENTES UE', cliente:'ALEXANDRU BOATA', nie:'', otrosClientes:'', numExtj:'', esMenor:false, titularFactura:'', dniTitular:'', fechaCreacion:'2025-10-16', docCompleta:'SI', fechaPresentacion:'2025-11-26', totalTasas:12, tasasPagadas:'SI', tasasPresentadas:'SI', fechaReqTasas:'', fechaPagoTasas:'', fechaPresTasas:'', fechaRecepReq:'', fechaPresReq:'', fechaRespuesta:'', estado:'CONCEDIDO', traduccion:'NO', importeTotal:240, estadoFactura:'EN TRÁMITE', pagos:[{fecha:'2025-10-16',importe:240,recibo:''}], checklist:[], observaciones:'ENVIADO A COLEGIO QUE SOLICITA CITA Y ACOMPAÑA AL CLIENTE' },
-    { id:'exp_6', tipo:'EX', numExp:'EX25/105', gestion:'RENOVACIÓN RESIDENCIA TEMPORAL', cliente:'HAYAT LAKHAL', nie:'Z4034141S', otrosClientes:'THAINA', numExtj:'40020250039733', esMenor:false, titularFactura:'', dniTitular:'', fechaCreacion:'2025-10-24', docCompleta:'SI', fechaPresentacion:'2025-12-04', totalTasas:10.94, tasasPagadas:'SI', tasasPresentadas:'SI', fechaReqTasas:'', fechaPagoTasas:'', fechaPresTasas:'', fechaRecepReq:'2026-02-18', fechaPresReq:'2026-02-27', fechaRespuesta:'', estado:'CONCEDIDO', traduccion:'NO', importeTotal:230, estadoFactura:'EN TRÁMITE', pagos:[{fecha:'2025-10-24',importe:230,recibo:''}], checklist:[], observaciones:'PENDIENTE RESOLUCION' },
-    { id:'exp_7', tipo:'EX', numExp:'EX26/001', gestion:'RENOVACIÓN RESIDENCIA Y TRABAJO CTA. AJENA', cliente:'ZAKARIA RAHALI', nie:'Y5050764R', otrosClientes:'', numExtj:'49920250007053', esMenor:false, titularFactura:'', dniTitular:'', fechaCreacion:'2026-01-16', docCompleta:'SI', fechaPresentacion:'2026-01-16', totalTasas:16.4, tasasPagadas:'SI', tasasPresentadas:'SI', fechaReqTasas:'', fechaPagoTasas:'', fechaPresTasas:'', fechaRecepReq:'', fechaPresReq:'', fechaRespuesta:'', estado:'CONCEDIDO', traduccion:'NO', importeTotal:240, estadoFactura:'EN TRÁMITE', pagos:[{fecha:'2025-01-16',importe:240,recibo:''}], checklist:[], observaciones:'COBRANDO DESEMPLEO' },
-    { id:'exp_8', tipo:'NA', numExp:'NA26/001', gestion:'SOLICITUD DE NACIONALIDAD POR RESIDENCIA', cliente:'FATIHA BAEYOUD', nie:'Y0046303H', otrosClientes:'ILYAS MARZOUG', numExtj:'', esMenor:false, titularFactura:'', dniTitular:'', fechaCreacion:'2026-01-21', docCompleta:'SI', fechaPresentacion:'2026-02-12', totalTasas:104.05, tasasPagadas:'SI', tasasPresentadas:'', fechaReqTasas:'', fechaPagoTasas:'', fechaPresTasas:'', fechaRecepReq:'2026-06-12', fechaPresReq:'', fechaRespuesta:'', estado:'EN TRÁMITE', traduccion:'NO', importeTotal:300, estadoFactura:'EN TRÁMITE', pagos:[{fecha:'2026-01-21',importe:150,recibo:''}], checklist:[], observaciones:'ENVIO CONCESION ANTERIOR CADUCADA' },
-    { id:'exp_9', tipo:'EX', numExp:'EX26/002', gestion:'RENOVACIÓN RESIDENCIA TEMPORAL', cliente:'MOHAMED AHOUROUG', nie:'Y8518503F', otrosClientes:'', numExtj:'49920250006830', esMenor:false, titularFactura:'', dniTitular:'', fechaCreacion:'2026-01-28', docCompleta:'SI', fechaPresentacion:'2026-01-28', totalTasas:21.87, tasasPagadas:'SI', tasasPresentadas:'SI', fechaReqTasas:'', fechaPagoTasas:'', fechaPresTasas:'', fechaRecepReq:'', fechaPresReq:'2026-03-27', fechaRespuesta:'', estado:'CONTESTADO REQUERIMIENTO', traduccion:'NO', importeTotal:240, estadoFactura:'EN TRÁMITE', pagos:[{fecha:'2026-01-28',importe:25,recibo:''},{fecha:'2026-01-29',importe:100,recibo:''},{fecha:'2026-02-16',importe:110,recibo:''}], checklist:[], observaciones:'REQUERIDO HIST EMPADRONAMIENTO Y PASAPORTE' },
-    { id:'exp_10', tipo:'EX', numExp:'EX26/003', gestion:'SOLICITUD CARTA DE INVITACIÓN', cliente:'JUAN MATEO PEREZ', nie:'52517721G', otrosClientes:'HAYAT MOUHID', numExtj:'', esMenor:false, titularFactura:'', dniTitular:'', fechaCreacion:'2026-02-19', docCompleta:'NO', fechaPresentacion:'2026-02-19', totalTasas:0, tasasPagadas:'', tasasPresentadas:'', fechaReqTasas:'', fechaPagoTasas:'', fechaPresTasas:'', fechaRecepReq:'2026-03-09', fechaPresReq:'', fechaRespuesta:'', estado:'RESUELTO', traduccion:'NO', importeTotal:240, estadoFactura:'EN TRÁMITE', pagos:[{fecha:'2026-02-19',importe:150,recibo:''},{fecha:'2026-03-19',importe:90,recibo:''}], checklist:[], observaciones:'ENVIADO A COLEGIO / fecha recogida 23/3 11:30' },
+    { id:'exp_1', tipo:'EX', numExp:'EX25/100', gestion:'REAGRUPACIÓN FAMILIAR', cliente:'AMINA', nie:'TW4321083', otrosClientes:'ASMA MAZOUZ', numExtj:'I04202503979164', esMenor:false, titularFactura:'', dniTitular:'', fechaCreacion:'2025-12-09', docCompleta:'SI', fechaPresentacion:'2025-12-09', totalTasas:10.94, tasasPagadas:'SI', tasasPresentadas:'SI', fechaReqTasas:'', fechaPagoTasas:'', fechaPresTasas:'', fechaRecepReq:'2026-01-26', fechaPresReq:'2026-02-10', fechaRespuesta:'2026-01-26', estado:'DENEGADO', traduccion:'NO', importeTotal:240, estadoFactura:'EN TRÁMITE', pagos:[{fecha:'2025-12-09',importe:100,recibo:''}], checklist:[], observaciones:'' },
+    { id:'exp_7', tipo:'EX', numExp:'EX26/001', gestion:'RENOVACIÓN RESIDENCIA Y TRABAJO CTA. AJENA', cliente:'ZAKARIA RAHALI', nie:'Y5050764R', otrosClientes:'', numExtj:'49920250007053', esMenor:false, titularFactura:'', dniTitular:'', fechaCreacion:'2026-01-16', docCompleta:'SI', fechaPresentacion:'2026-01-16', totalTasas:16.4, tasasPagadas:'SI', tasasPresentadas:'SI', fechaReqTasas:'', fechaPagoTasas:'', fechaPresTasas:'', fechaRecepReq:'', fechaPresReq:'', fechaRespuesta:'', estado:'CONCEDIDO', traduccion:'NO', importeTotal:240, estadoFactura:'EN TRÁMITE', pagos:[{fecha:'2025-01-16',importe:240,recibo:''}], checklist:[], observaciones:'' },
+    { id:'exp_8', tipo:'NA', numExp:'NA26/001', gestion:'SOLICITUD DE NACIONALIDAD POR RESIDENCIA', cliente:'FATIHA BAEYOUD', nie:'Y0046303H', otrosClientes:'ILYAS MARZOUG', numExtj:'', esMenor:false, titularFactura:'', dniTitular:'', fechaCreacion:'2026-01-21', docCompleta:'SI', fechaPresentacion:'2026-02-12', totalTasas:104.05, tasasPagadas:'SI', tasasPresentadas:'', fechaReqTasas:'', fechaPagoTasas:'', fechaPresTasas:'', fechaRecepReq:'2026-06-12', fechaPresReq:'', fechaRespuesta:'', estado:'EN TRÁMITE', traduccion:'NO', importeTotal:300, estadoFactura:'EN TRÁMITE', pagos:[{fecha:'2026-01-21',importe:150,recibo:''}], checklist:[], observaciones:'' },
   ];
 }
 
-// ═══════════════════════════════════════════════════════
-// CONTROLES UI
-// ═══════════════════════════════════════════════════════
-function setTab(tab, el) {
-  tabActual = tab;
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');
-  renderLista();
-}
+function setTab(tab, el) { tabActual = tab; document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); renderLista(); }
+function setFiltro(f, el) { filtroActual = f; document.querySelectorAll('.filtro').forEach(b=>b.classList.remove('on')); el.classList.add('on'); renderLista(); }
+function cerrarModal() { document.getElementById('overlay').classList.remove('visible'); expEditando = null; pagosTemp = []; }
 
-function setFiltro(f, el) {
-  filtroActual = f;
-  document.querySelectorAll('.filtro').forEach(b=>b.classList.remove('on'));
-  el.classList.add('on');
-  renderLista();
-}
-
-function cerrarModal() {
-  document.getElementById('overlay').classList.remove('visible');
-  expEditando = null;
-  pagosTemp = [];
-}
-
-// ── Cambiar estado de facturación desde el detalle ──────────────
 function cambiarEstadoFactura(id, nuevoEstado) {
-  const exp = expedientes.find(e=>e.id===id);
-  if (!exp) return;
-  exp.estadoFactura = nuevoEstado;
-  guardarLocal();
-  sincronizarSheets();
-  // Refrescar solo el detalle sin cerrar el modal
+  const exp = expedientes.find(e=>e.id===id); if (!exp) return;
+  exp.estadoFactura = nuevoEstado; guardarLocal(); sincronizarSheets();
   document.getElementById('modalBody').innerHTML = renderDetalle(exp);
-  switchDetalleTab(document.querySelector('.detalle-tab'), 'tab-factura');
   document.querySelectorAll('.detalle-tab').forEach((t,i)=> i===1 ? t.classList.add('active') : t.classList.remove('active'));
   document.getElementById('tab-factura').style.display='block';
   document.getElementById('tab-timeline').style.display='none';
@@ -1290,64 +969,28 @@ function cambiarEstadoFactura(id, nuevoEstado) {
   renderLista();
 }
 
-// ── Guardar número de factura ───────────────────────────────────
-function guardarNumFactura(id, numFactura) {
-  const exp = expedientes.find(e=>e.id===id);
-  if (!exp) return;
-  exp.numFactura = numFactura.trim().toUpperCase();
-  guardarLocal();
-  sincronizarSheets();
-}
-
-// ── Marcar/desmarcar item del checklist ─────────────────────────
 function toggleCheckItem(id, item, marcado) {
-  const exp = expedientes.find(e=>e.id===id);
-  if (!exp) return;
+  const exp = expedientes.find(e=>e.id===id); if (!exp) return;
   exp.checklist = exp.checklist || [];
-  if (marcado) {
-    if (!exp.checklist.includes(item)) exp.checklist.push(item);
-  } else {
-    exp.checklist = exp.checklist.filter(i=>i!==item);
-  }
-  // Actualizar visual del label
-  const labels = document.querySelectorAll('#checklistInteractivo label.check-item');
-  labels.forEach(lbl => {
+  if (marcado) { if (!exp.checklist.includes(item)) exp.checklist.push(item); }
+  else { exp.checklist = exp.checklist.filter(i=>i!==item); }
+  document.querySelectorAll('#checklistInteractivo label.check-item').forEach(lbl => {
     const cb = lbl.querySelector('input[type=checkbox]');
-    if (cb && cb.checked !== undefined) {
-      lbl.classList.toggle('done', cb.checked);
-    }
+    if (cb) lbl.classList.toggle('done', cb.checked);
   });
-  guardarLocal();
-  sincronizarSheets();
+  guardarLocal(); sincronizarSheets();
 }
 
-document.getElementById('overlay').addEventListener('click', e => {
-  if (e.target === document.getElementById('overlay')) cerrarModal();
-});
+document.getElementById('overlay').addEventListener('click', e => { if (e.target === document.getElementById('overlay')) cerrarModal(); });
 
-// ═══════════════════════════════════════════════════════
-// INICIO
-// ═══════════════════════════════════════════════════════
-cargarDeSheets();
-renderLista();
-
-// Auto-generar nº expediente al abrir formulario nuevo
-document.querySelector('.btn-nuevo').addEventListener('click', () => {
-  setTimeout(() => {
-    const numEl = document.getElementById('f_numExp');
-    if (numEl && !numEl.value) numEl.value = nextNumExp('EX');
-  }, 50);
-});
-// ═══ CLIENTESMAESTRO ══════════════════════════════════════════════════════
-const URL_MAESTRO = 'https://script.google.com/macros/s/AKfycbyVXypuTXm5tRvbP-xJu06q7ZsJ2qve790lCyvBLJpr6jTckZhc6wZ4kX5XPhVOWCVrww/exec';
-
+// ═══ CLIENTESMAESTRO ═════════════════════════════════════════
 function guardarEnMaestro(datos) {
-  if (!datos.DNI_NIE || !datos.Nombre) return;
+  if (!URL_MAESTRO || !datos.DNI_NIE || !datos.Nombre) return;
   fetch(URL_MAESTRO, { method:'POST', mode:'no-cors', body: JSON.stringify({ action:'upsert', datos }) });
 }
 
 async function buscarEnMaestro(dni) {
-  if (!dni || dni.length < 7) return null;
+  if (!URL_MAESTRO || !dni || dni.length < 7) return null;
   try {
     const r = await fetch(URL_MAESTRO + '?action=buscar&dni=' + encodeURIComponent(dni.toUpperCase().replace(/-/g,'')));
     const d = await r.json();
@@ -1363,48 +1006,43 @@ async function rellenarDesdeMaestroEX() {
   if(st) st.textContent = '🔍 Buscando...';
   const cli = await buscarEnMaestro(nie);
   if (!cli) { if(st) st.textContent = '❌ No encontrado en Maestro'; return; }
-  const set = (id, val) => { const el = document.getElementById(id); if(el && val) el.value = val; };
-  const nombreCompleto = [cli.Nombre, cli.Apellido1, cli.Apellido2].filter(Boolean).join(' ').toUpperCase();
-  set('f_cliente', nombreCompleto);
+  const set = (id, v) => { const el = document.getElementById(id); if(el && v) el.value = v; };
+  set('f_cliente', [cli.Nombre, cli.Apellido1, cli.Apellido2].filter(Boolean).join(' ').toUpperCase());
   if(st) st.textContent = '✅ Datos cargados desde Maestro';
 }
 
-// ═══ VENCIMIENTOS CENTRALES — EXTRANJERÍA ═════════════════════════════════
-const URL_VTO_EXT = 'https://script.google.com/macros/s/AKfycbzSpWjKLGxRp4CR4miJk4uP7b6CNmmToqGrleJXbEtQX9T6BdRyLkMReE5lBGxVk5i9SA/exec';
-
+// ═══ VENCIMIENTOS CENTRALES ═══════════════════════════════════
 function enviarVencimientosExt(exp) {
+  if (!URL_VTO_EXT) return;
   const cerrado = ['resuelto','archivado','cerrado','entregado','cancelado'].includes((exp.estado||'').toLowerCase());
-
-  // Marcar completados si se cierra
   if (cerrado) {
     ['Límite requerimiento','Límite pago tasas'].forEach(tipo => {
-      fetch(URL_VTO_EXT, { method:'POST', mode:'no-cors', body: JSON.stringify({
-        action:'completar', app:'Extranjería', expediente: exp.numExp, tipo
-      })});
+      fetch(URL_VTO_EXT, { method:'POST', mode:'no-cors', body: JSON.stringify({ action:'completar', app:'Extranjería', expediente: exp.numExp, tipo }) });
     });
     return;
   }
-
-  // Límite requerimiento (30 días desde presentación)
   if (exp.fechaLimiteReq) {
-    fetch(URL_VTO_EXT, { method:'POST', mode:'no-cors', body: JSON.stringify({
-      action:'upsert', app:'Extranjería',
-      expediente: exp.numExp, cliente: exp.cliente,
-      fecha: exp.fechaLimiteReq, tipo:'Límite requerimiento',
-      observaciones: exp.gestion||'', estado:'Pendiente'
-    })});
+    fetch(URL_VTO_EXT, { method:'POST', mode:'no-cors', body: JSON.stringify({ action:'upsert', app:'Extranjería', expediente: exp.numExp, cliente: exp.cliente, fecha: exp.fechaLimiteReq, tipo:'Límite requerimiento', observaciones: exp.gestion||'', estado:'Pendiente' }) });
   }
-
-  // Límite pago tasas
   if (exp.fechaLimiteTasas) {
-    fetch(URL_VTO_EXT, { method:'POST', mode:'no-cors', body: JSON.stringify({
-      action:'upsert', app:'Extranjería',
-      expediente: exp.numExp, cliente: exp.cliente,
-      fecha: exp.fechaLimiteTasas, tipo:'Límite pago tasas',
-      observaciones: exp.gestion||'', estado:'Pendiente'
-    })});
+    fetch(URL_VTO_EXT, { method:'POST', mode:'no-cors', body: JSON.stringify({ action:'upsert', app:'Extranjería', expediente: exp.numExp, cliente: exp.cliente, fecha: exp.fechaLimiteTasas, tipo:'Límite pago tasas', observaciones: exp.gestion||'', estado:'Pendiente' }) });
   }
 }
+
+// ═══ ARRANQUE ════════════════════════════════════════════════
+async function arrancar() {
+  await cargarConfig();   // primero cargamos las URLs
+  cargarDeSheets();       // luego sincronizamos
+  renderLista();          // y pintamos
+  document.querySelector('.btn-nuevo').addEventListener('click', () => {
+    setTimeout(() => {
+      const numEl = document.getElementById('f_numExp');
+      if (numEl && !numEl.value) numEl.value = nextNumExp('EX');
+    }, 50);
+  });
+}
+
+arrancar();
 </script>
 </body>
 </html>
