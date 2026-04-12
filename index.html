@@ -596,7 +596,7 @@ function renderDetalle(exp) {
       </div>
       <div style="font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Estado de facturación</div>
       <div style="display:flex;gap:8px;margin-bottom:12px;">
-        ${['EN TRÁMITE','LISTO','FACTURADO'].map(s=>`
+        ${['EN TRÁMITE','LISTO','FACTURADO','nf'].map(s=>`
           <button onclick="cambiarEstadoFactura('${exp.id}','${s}')" style="flex:1;padding:8px;border:1px solid ${exp.estadoFactura===s?'#1a2e4a':'#ddd'};border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;color:${exp.estadoFactura===s?'white':'#555'};background:${exp.estadoFactura===s?'#1a2e4a':'white'};">${s}</button>
         `).join('')}
       </div>
