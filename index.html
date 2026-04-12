@@ -725,6 +725,7 @@ function renderFormulario(exp) {
             <option value="EN TRÁMITE" ${e.estadoFactura==='EN TRÁMITE'||!e.estadoFactura?'selected':''}>En trámite</option>
             <option value="LISTO" ${e.estadoFactura==='LISTO'?'selected':''}>Listo para facturar</option>
             <option value="FACTURADO" ${e.estadoFactura==='FACTURADO'?'selected':''}>Facturado</option>
+            <option value="nf" ${e.estadoFactura==='nf'?'selected':''}>No facturar</option>
           </select>
         </div>
       </div>
